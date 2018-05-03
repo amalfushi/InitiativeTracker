@@ -23,5 +23,40 @@
 
 <h1>Initiative</h1>
 <section class="main">
-  
+  <header class="header">
+    <input class="new-character" placeholder="Add character to initiative" autofocus="" [(ngModel)]="newCharacter.name" (keyup.enter)="addCharacter()">
+  </header>
+
+  <section class="main" *ngIf="characters.length > 0">
+
+    <!-- list of characters in this initiative -->
+    <ul class="initiative" dnd-sortable-container [sortableData]="characters">
+      <li class="character" *ngFor="let character of characters, let i = index" dnd-sortable [sortableIndex]="i" [dragData]="character"
+        (onDropSuccess)="onMove($event, i)">
+        <!-- character panel (probably should be a child component) -->
+        <div class="view">
+          <!-- drag and drop handle -->
+          <span dnd-sortable-handle class="handle">=</span>
+
+          <!-- Character Details Panel -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <label>{{character.name}}</label>
+              <label *ngIf="character.player_name">{{character.player_name}}</label>
+            </mat-expansion-panel-header>
+            <!-- <select class="character-type" value="Player Character">
+              <option>Player Character</option>
+            </select> -->
+            <button class="destroy" (click)="removeCharacter(character)">X</button>
+          </mat-expansion-panel>
+
+        </div>
+      </li>
+    </ul>
+  </section>
+  <footer class="footer" *ngIf="characters.length > 0">
+    <span class="character-count">
+      <strong>{{characters.length}}</strong> {{characters.length === 1 ? 'character' : 'characters'}}
+    </span>
+  </footer>
 </section>

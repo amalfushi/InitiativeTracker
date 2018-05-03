@@ -8,6 +8,8 @@ import { HttpModule } from "@angular/http";
 import { DndModule } from "ng2-dnd";
 import { CharacterListComponent } from './character-list/character-list.component';
 import { CharacterCardComponent } from './character-card/character-card.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { CharacterCardComponent } from './character-card/character-card.componen
     BrowserModule,
     FormsModule,
     HttpModule,
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    BrowserAnimationsModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
