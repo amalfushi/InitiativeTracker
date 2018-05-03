@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from "@angular/http";
 import { DndModule } from "ng2-dnd";
+import { CharacterListComponent } from './character-list/character-list.component';
+import { CharacterCardComponent } from './character-card/character-card.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CharacterListComponent,
+    CharacterCardComponent
   ],
   imports: [
     BrowserModule,
