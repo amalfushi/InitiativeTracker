@@ -1,46 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { DndModule } from 'ng2-dnd';
-import { MatExpansionModule } from '@angular/material';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+
+import { Character } from '../character';
+import { CharacterDataService } from '../character-data.service';
 
 @Component({
   selector: 'app-character-list',
   templateUrl: './character-list.component.html',
-  styleUrls: ['./character-list.component.css']
+  styleUrls: ['./character-list.component.css'],
+  providers: [CharacterDataService]
 })
 export class CharacterListComponent implements OnInit {
-  characters: Object[] = [
-    {
-      "name": "Barnaby",
-      "type": "Player Character",
-      "player_name": "Jones"
-    }
-  ];
+  newCharacter: Character = new Character();
+  characters: Character[];
 
-  newCharacter: Object = {
-    "name": "",
-    "type": "",
-    "player_name": ""
+  constructor(private characterDataService: CharacterDataService) {
+    this.characters = this.getCharacters();
   }
-
-  constructor() { }
 
   ngOnInit() {
   }
 
   addCharacter() {
-    this.characters.push(this.newCharacter);
-    this.newCharacter = new Object({
-      "name": "",
-      "type": "",
-      "player_name": ""
-    })
+    if (this.newCharacter.name !== "") {
+      this.characterDataService.addCharacter(this.newCharacter);
+      this.newCharacter = new Character();
+    }
   }
 
   removeCharacter(character) {
-    console.log(`${character.name} will be removed`);
+    this.characterDataService.deleteCharacterById(character.id);
+    this.characters = this.getCharacters();
   }
 
-  onMove(character: Object, position: number){
-    console.log(`Moved ${JSON.stringify(character)} to position ${position}`);
+  getCharacters() {
+    return this.characterDataService.getAllCharacters();
+  }
+
+  sortCharacters() {
+    this.characters = this.characterDataService.sortCharacters();
+  }
+
+  onMove(character: Character, position: number) {
+    this.characterDataService.moveCharacter(character, position);
   }
 }
