@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Todo } from "./todo"
+
 @Injectable()
 export class TodoDataService {
   lastId: number = 0;
@@ -38,7 +39,7 @@ export class TodoDataService {
   }
 
   toggleTodoComplete(todo: Todo) {
-    let updatedTodo = this.updateTodoById(todo.id, {complete: !todo.complete});
+    let updatedTodo = this.updateTodoById(todo.id, { complete: !todo.complete });
     return updatedTodo;
   }
 
