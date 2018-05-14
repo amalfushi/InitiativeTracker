@@ -14,7 +14,6 @@ class DiceParser {
 
         for (let i = 0; i < tokens.length; i++) {
             // skip token if it's whitespace
-            // console.log(values, operations)
             if (tokens[i] === " ") continue;
 
             // push current token to values stack if it's a number
@@ -35,7 +34,7 @@ class DiceParser {
             // closing brace encountered, solve everything inside;
             else if (tokens[i] === ")") {
                 while (operations[operations.length - 1] != "(") {
-                    values.push(this.applyOperation(operations.pop(), values.pop(), values.pop(), rolls));
+                    values.push(this.apply(operations.pop(), values.pop(), values.pop(), rolls));
                 }
                 operations.pop();
             }
@@ -46,10 +45,9 @@ class DiceParser {
                 // to catch any strings missing the number of dice to roll. eg: 'd20'
                 if (tokens[i] == "d" && (!tokens[i-1] || (tokens[i-1] < "0" || tokens[i-1] > "9"))) values.push(1);
 
-
                 // while the top of operations has the same or greater precedence to the current token, apply the operator on top of the operations stack to the top two elements in the values stack
                 while (operations.length && this.getPrecedence(tokens[i]) <= this.getPrecedence(operations[operations.length - 1])) {
-                    values.push(this.applyOperation(operations.pop(), values.pop(), values.pop(), rolls))
+                    values.push(this.apply(operations.pop(), values.pop(), values.pop(), rolls));
                 }
                 // push current token to operations
                 operations.push(tokens[i])
@@ -62,12 +60,12 @@ class DiceParser {
         // entire string has been parsed at this point.  finish applying remaining operations
         while (operations.length) {
             // console.log(operations)
-            values.push(this.applyOperation(operations.pop(), values.pop(), values.pop(), rolls))
+            values.push(this.apply(operations.pop(), values.pop(), values.pop(), rolls))
         }
         return {"total": values.pop(), "rolls": rolls};
     }
 
-    // returns a value based on the order of operations expected (dice -> * / -> + -)
+    // returns a value based on the order of operations expected: dice => ( ) => * / => + -
     getPrecedence(op) {
         switch (op) {
             case "+": return 1;
@@ -80,7 +78,7 @@ class DiceParser {
         return 0;
     }
 
-    applyOperation(op, val1, val2, diceRolls) {
+    apply(op, val1, val2, diceRolls) {
         switch (op) {
             case "+": return val2 + val1;
             case "-": return val2 - val1;
@@ -108,9 +106,7 @@ class DiceParser {
 
 let dc = new DiceParser();
 
-console.log(dc.evaluate("ddddd6+dddd4"));
+console.log(dc.evaluate("ddddd6 + dddd4"));
 console.log(dc.evaluate("d6+2d12-3"));
 console.log(dc.evaluate("d6*(2d12-3)"));
-
 console.log(dc.evaluate("d6*(2d12-3)/d4+2"));
-
