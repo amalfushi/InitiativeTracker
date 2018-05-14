@@ -4,8 +4,8 @@ class DiceParser {
     }
 
     evaluate(diceString) {
-        
-        let tokens = diceString.toLowerCase().trim().replace('/[d][d}+/', 'd').split("");
+        // convert to lower case, trim of any excess whitespace, replace any repeated 'd's with a single, and convert to an array of characters
+        let tokens = diceString.toLowerCase().trim().replace(/[d]+/g, 'd').split("");
 
         //substitutes for stacks
         let values = [];
@@ -53,6 +53,9 @@ class DiceParser {
                 }
                 // push current token to operations
                 operations.push(tokens[i])
+            }
+            else{
+                throw new Error("Invalid Dice String")
             }
         }
 
@@ -105,7 +108,7 @@ class DiceParser {
 
 let dc = new DiceParser();
 
-console.log(dc.evaluate("d6"));
+console.log(dc.evaluate("ddddd6+dddd4"));
 console.log(dc.evaluate("d6+2d12-3"));
 console.log(dc.evaluate("d6*(2d12-3)"));
 
