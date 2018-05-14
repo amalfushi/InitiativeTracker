@@ -1,64 +1,60 @@
-<!-- <section class="todoapp">
-    <header class="header">
-      <h1>Todos</h1>
-      <input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
-    </header>
-    <section class="main" *ngIf="todos.length > 0">
-      <ul class="todo-list" dnd-sortable-container [sortableData]="todos">
-        <li class="todo-item" *ngFor="let todo of todos, let i = index;" [class.completed]="todo.complete" dnd-sortable [sortableIndex]="i" [dragData]="todo" (onDropSuccess)="onMove($event, i)">
-          <div class="view">
-            <span dnd-sortable-handle class="handle">=</span>
-            <input class="toggle" type="checkbox" (click)="toggleTodoComplete(todo)" [checked]="todo.complete">
-            <label>{{todo.title}}</label>
-            <button class="destroy" (click)="removeTodo(todo)">X</button>
-          </div>
-        </li>
-      </ul>
-    </section>
-    <footer class="footer" *ngIf="todos.length > 0">
-      <span class="todo-count">
-        <strong>{{todos.length}}</strong> {{todos.length == 1 ? 'item' : 'items'}} left</span>
-    </footer>
-  </section> -->
+<div class="main container col-lg-10 offset-lg-1">
+  <header class="header ">
+    <h1 class="row">Initiative</h1>
+    <div class="row">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="collapse" href="#characterDetails"
+            role="button" aria-expanded="false" aria-controls="characterDetails">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+        </div>
+        <input class="new-character" placeholder="Character Name" autofocus="" [(ngModel)]="newCharacter.name" (keyup.enter)="addCharacter()">
+        <div class="input-group-append">
+          <button class="btn btn-primary" (click)="addCharacter()">
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
 
-<h1>Initiative</h1>
-<section class="container">
-  <header class="row justify-content-center">
-    <mat-expansion-panel [expanded]="true" class="col-10">
-      <mat-expansion-panel-header>
-        <label>Add character...</label>
-      </mat-expansion-panel-header>
-      <input class="new-character" placeholder="Character Name" autofocus="" [(ngModel)]="newCharacter.name" (keyup.enter)="addCharacter()">
-      <input class="new-character-initiative" placeholder="Initiative (optional)" type="number" [(ngModel)]="newCharacter.initiative"
-        (keyup.enter)="addCharacter()" min=0 max=100>
-      <input placeholder="Player Name" [(ngModel)]="newCharacter.player_name" (keyup.enter)="addCharacter()">
 
-    </mat-expansion-panel>
+    <div class="row">
+      <div class="collapse " id="characterDetails">
+        <input placeholder="Player Name" [(ngModel)]="newCharacter.player_name" (keyup.enter)="addCharacter()">
+        <input class="new-character-initiative" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative" (keyup.enter)="addCharacter()"
+          min=0 max=100>
+      </div>
+    </div>
   </header>
 
-  <section class="main row" *ngIf="characters.length > 0">
 
+  <section class="initiative row" *ngIf="characters.length > 0">
     <!-- list of characters in this initiative -->
-    <ul class="container initiative" dnd-sortable-container [sortableData]="characters">
-      <li class="row character" *ngFor="let character of characters, let i = index" dnd-sortable [sortableIndex]="i" [dragData]="character"
+    <ul class="row" dnd-sortable-container [sortableData]="characters">
+      <li class="character" *ngFor="let character of characters, let i = index" dnd-sortable [sortableIndex]="i" [dragData]="character"
         (onDropSuccess)="onMove($event, i)">
 
         <!-- drag and drop handle -->
         <span dnd-sortable-handle class="handle">=</span>
 
         <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{character.name}} - {{character.initiative}}</h5>
-            <h6 class="card-subtitle" *ngIf="character.player_name">{{character.player_name}}</h6>
+          <div class="card-header">
+            <h5>{{character.name}}</h5>
+            <h6 *ngIf="character.initiative > 0">{{character.initiative}}</h6>
+          </div>
+          <div *ngIf="character.player_name" class="card-body">
+            <h6 class="card-subtitle">{{character.player_name}}</h6>
           </div>
           <a href="#" class="card-link" (click)="removeCharacter(character)">Delete</a>
         </div>
       </li>
     </ul>
   </section>
-  <footer class="footer" *ngIf="characters.length > 0">
+
+  <footer class="footer row" *ngIf="characters.length > 0">
     <span class="character-count">
       <strong>{{characters.length}}</strong> {{characters.length === 1 ? 'character' : 'characters'}}
     </span>
   </footer>
-</section>
+</div>

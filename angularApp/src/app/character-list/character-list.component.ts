@@ -21,6 +21,10 @@ export class CharacterListComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.newCharacter.name ="barnaby";
+    // this.newCharacter.player_name="jones";
+    // this.newCharacter.initiative=10;
+    // this.addCharacter();
   }
 
   addCharacter() {
