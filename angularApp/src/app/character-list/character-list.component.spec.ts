@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CharacterListComponent } from './character-list.component';
+import { FormsModule } from '@angular/forms';
+import { DndModule } from 'ng2-dnd';
 
 describe('CharacterListComponent', () => {
   let component: CharacterListComponent;
@@ -8,7 +10,8 @@ describe('CharacterListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CharacterListComponent ]
+      declarations: [ CharacterListComponent ],
+      imports: [FormsModule, DndModule]
     })
     .compileComponents();
   }));

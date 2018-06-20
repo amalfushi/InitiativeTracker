@@ -1,3 +1,10 @@
-<p>
-  character-card works!
-</p>
+<div class="card">
+  <div class="card-header">
+    <h5>{{character.name}}</h5>
+    <h6 *ngIf="character.initiative > 0">{{character.initiative}}</h6>
+  </div>
+  <div *ngIf="character.player_name" class="card-body">
+    <h6 class="card-subtitle">{{character.player_name}}</h6>
+  </div>
+  <a href="#" class="card-link" (click)="deleteCharacter(character)">Delete</a>
+</div>
