@@ -3,6 +3,8 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DndModule } from 'ng2-dnd';
+import { CharacterListComponent } from './character-list/character-list.component';
+import { CharacterCardComponent } from './character-card/character-card.component';
 
 describe('AppComponent', () => {
   let fixture;
@@ -16,7 +18,9 @@ describe('AppComponent', () => {
         DndModule.forRoot()
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        CharacterListComponent,
+        CharacterCardComponent
       ],
       // providers: [TodoDataService]
     });
