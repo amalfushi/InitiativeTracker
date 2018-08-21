@@ -1,37 +1,51 @@
 <div class="container">
   <div class="col align-self-center">
     <!-- <header class="header"> -->
-      <h1 class="row">Initiative</h1>
-      <div class="row ">
+    <h1 class="row">Initiative</h1>
+    <div class="row ">
 
-        <div class="input-group character-form">
-          <div class="input-group-prepend">
-            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="collapse" href="#characterDetails"
-              role="button" aria-expanded="false" aria-controls="characterDetails">
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-          </div>
-          
-          <input class="new-character" placeholder="Character Name" autofocus="" [(ngModel)]="newCharacter.name" (keyup.enter)="addCharacter()">
-          <div class="input-group-append">
-            <button class="btn btn-primary" (click)="addCharacter()">
-              Add
-            </button>
-          </div>
+      <!-- ADD CHARACTER FORM -->
+      <div class="input-group character-form">
+        <!-- DROPDOWN BUTTON -->
+        <div class="input-group-prepend">
+          <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="collapse" href="#characterDetails"
+            role="button" aria-expanded="false" aria-controls="characterDetails">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+        </div>
+
+        <!-- CHARACTER NAME -->
+        <input class="new-character" placeholder="Character Name" autofocus="" [(ngModel)]="newCharacter.name" (keyup.enter)="addCharacter()">
+
+        <!-- ADD BUTTON -->
+        <div class="input-group-append">
+          <button class="btn btn-primary" (click)="addCharacter()">
+            Add
+          </button>
         </div>
       </div>
+    </div>
 
+    <!-- COLLAPSE -- ADDITIONAL INFO -->
+    <div class="row">
+      <div class="collapse " id="characterDetails">
+        <!-- INITIATIVE -->
+        <input class="new-character-initiative" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative" (keyup.enter)="addCharacter()"
+          min=0 max=100>
 
-      <div class="row">
-        <div class="collapse " id="characterDetails">
-          <input placeholder="Player Name" [(ngModel)]="newCharacter.player_name" (keyup.enter)="addCharacter()">
-          <input class="new-character-initiative" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative" (keyup.enter)="addCharacter()"
-            min=0 max=100>
-        </div>
+        <!-- HEALTH -->
+        <input placeholder="Health" type="number" [(ngModel)]="newCharacter.health" (keyup.enter)="addCharacter()">
+
+        <!-- DEFENSE -->
+        <input placeholder="Defense" type="number" [(ngModel)]="newCharacter.defense" (keyup.enter)="addCharacter()">
+
+        <!-- PLAYER NAME -->
+        <input placeholder="Player Name" [(ngModel)]="newCharacter.player_name" (keyup.enter)="addCharacter()">
       </div>
+    </div>
     <!-- </header> -->
 
-
+    <!-- INITIATIVE -->
     <section class="initiative row" *ngIf="characters.length > 0">
       <!-- list of characters in this initiative -->
       <ul class="row" dnd-sortable-container [sortableData]="characters">
@@ -42,6 +56,8 @@
         </li>
       </ul>
     </section>
+
+    <button *ngIf="characters.length > 1" (click)="sortCharacters()">Sort Initiative</button>
 
     <footer class="footer row" *ngIf="characters.length > 0">
       <span class="character-count">

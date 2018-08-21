@@ -1,10 +1,37 @@
 <div class="card">
+
+  <!-- CARD HEADER -->
   <div class="card-header">
     <h5>{{character.name}}</h5>
     <h6 *ngIf="character.initiative > 0">{{character.initiative}}</h6>
   </div>
-  <div *ngIf="character.player_name" class="card-body">
-    <h6 class="card-subtitle">{{character.player_name}}</h6>
+
+  <!-- CARD BODY -->
+  <div class="card-body">
+    <h6 *ngIf="character.player_name" class="card-subtitle">{{character.player_name}}</h6>
+
+    <div *ngIf="character.health" class="character-optional-details">
+      <label>Health</label>
+      <input type="number" class="card-subtitle" [(ngModel)]="character.health">
+    </div>
+
+    <div *ngIf="character.defense" class="character-optional-details">
+      <label>Defense</label>
+      <input type="number" class="card-subtitle" [(ngModel)]="character.defense">
+    </div>
+
+    <div class="rolls-form">
+      <input class="new-roll" placeholder="Add dice roll" autofocus="" [(ngModel)]="character.new_roll" (keyup.enter)="addRoll()">
+      <button (click)="addRoll()">+</button>
+    </div>
+
+    <div class="dice-rolls" *ngIf="this.character.rolls.length > 0">
+      <ul>
+        <li *ngFor="let roll of this.character.rolls">{{roll}}</li>
+      </ul>
+    </div>
   </div>
+
+
   <a href="#" class="card-link" (click)="deleteCharacter(character)">Delete</a>
 </div>
