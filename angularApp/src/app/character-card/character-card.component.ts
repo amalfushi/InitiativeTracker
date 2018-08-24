@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Character } from '../character';
+import { DiceService } from '../dice.service';
+import { Roll } from '../roll';
 
 @Component({
   selector: 'app-character-card',
@@ -9,25 +11,36 @@ import { Character } from '../character';
 export class CharacterCardComponent implements OnInit {
   @Input() character: Character;
   @Output() toDelete = new EventEmitter();
-  
-  constructor() { }
+
+  constructor(private diceService: DiceService) { }
 
   ngOnInit() {
   }
 
-  deleteCharacter() {
+  deleteCharacter(): void {
     this.toDelete.emit(this.character);
   }
 
-  addRoll() {
+  addRoll():void {
     //Normalize the new dice roll
-    this.character.new_roll = this.character.new_roll.toLowerCase();
-    console.log(this.character.new_roll.match(/(\d*)([dD]\d*)((?:[+*-](?:\d+|\([d]*\)))*)(?:\+([dD]\d*))?/))
-    if(this.character.new_roll.match(/(\d*)([dD]\d*)((?:[+*-](?:\d+|\([d]*\)))*)(?:\+([dD]\d*))?/)){ //Match any vaguelly valid dice roll
-      if (!this.character.new_roll.match(/[a-ce-zA-CE-Z]/)) { //Do not match other letters
-        this.character.rolls.push(this.character.new_roll);
-        this.character.new_roll = "";
-      }
+    let roll = this.character.new_roll;
+    roll.dice_string = roll.dice_string.trim().toLowerCase();
+
+    //Validate dice string
+    if (this.diceService.validateDiceString(roll.dice_string)) {
+      roll.dice_string = roll.dice_string.replace(/[d]+/g, 'd'); ///Remove any repeated 'd' otherwise they end up as 1d1
+      this.character.rolls.push(roll);
     }
+    //Reset this characters new roll
+    this.character.new_roll = new Roll('');
+  }
+
+  rollDice(roll): void {
+    this.diceService.evaluateRoll(roll);
+  }
+
+  removeRoll(roll):void {
+    let rolls = this.character.rolls;
+    this.character.rolls = rolls.filter((r) => r != roll);
   }
 }

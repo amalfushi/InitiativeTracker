@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Character } from './character';
+import { Roll } from './roll';
 
 @Injectable()
 export class CharacterDataService {
@@ -13,27 +14,28 @@ export class CharacterDataService {
       if (!character.id) {
         character.id = this.lastId++;
       }
-      if (!character.initiative) character.initiative = 0;
+    if (!character.initiative) character.initiative = 0;
+    character.new_roll = new Roll('');
     this.characters.push(character);
     if (character.initiative >= 0) this.sortCharacters();
     return this;
   }
 
   deleteCharacterById(id: number): CharacterDataService {
-    this.characters = this.characters.filter(todo => todo.id !== id);
+    this.characters = this.characters.filter(c => c.id !== id);
     return this;
   }
 
   getCharacterById(id: number): Character {
-    return this.characters.filter(todo => todo.id === id).pop();
+    return this.characters.filter(c => c.id === id).pop();
   }
 
-  updateTodoById(id: number, values: Object = {}): Character {
-    let character = this.getCharacterById(id);
-    if (!character) return null;
-    Object.assign(character, values);
-    return character;
-  }
+  // updateCharacterById(id: number, values: Object = {}): Character {
+  //   let character = this.getCharacterById(id);
+  //   if (!character) return null;
+  //   Object.assign(character, values);
+  //   return character;
+  // }
 
   getAllCharacters(): Character[] {
     return this.characters;
@@ -43,7 +45,7 @@ export class CharacterDataService {
     // console.log(`Moved ${JSON.stringify(character)} to the position ${position}`)
   }
 
-  sortCharacters() {
+  sortCharacters(): Character[] {
     this.characters = this.characters.sort((a, b) => b.initiative - a.initiative);
     return this.characters;
   }

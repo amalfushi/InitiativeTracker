@@ -2,14 +2,15 @@
 
   <!-- CARD HEADER -->
   <div class="card-header">
-    <h5>{{character.name}}</h5>
+    <div>
+      <h4>{{character.name}}</h4>
+      <h6 *ngIf="character.player_name"> - {{character.player_name}}</h6>
+    </div>
     <h6 *ngIf="character.initiative > 0">{{character.initiative}}</h6>
   </div>
 
   <!-- CARD BODY -->
   <div class="card-body">
-    <h6 *ngIf="character.player_name" class="card-subtitle">{{character.player_name}}</h6>
-
     <div *ngIf="character.health" class="character-optional-details">
       <label>Health</label>
       <input type="number" class="card-subtitle" [(ngModel)]="character.health">
@@ -20,18 +21,32 @@
       <input type="number" class="card-subtitle" [(ngModel)]="character.defense">
     </div>
 
+    <!-- ROLE INPUT -->
     <div class="rolls-form">
-      <input class="new-roll" placeholder="Add dice roll" autofocus="" [(ngModel)]="character.new_roll" (keyup.enter)="addRoll()">
+      <h5>Rolls</h5>
+      <input class="new-roll" placeholder="EX: '2d10+(1d6-1)'" autofocus="" [(ngModel)]="character.new_roll.dice_string" (keyup.enter)="addRoll()">
+      <input class="new-roll" placeholder="Roll Name" autofocus="" [(ngModel)]="character.new_roll.name" (keyup.enter)="addRoll()">
       <button (click)="addRoll()">+</button>
     </div>
 
-    <div class="dice-rolls" *ngIf="this.character.rolls.length > 0">
+    <!-- AVAILABLE ROLLS -->
+    <div class="dice-rolls-container" *ngIf="this.character.rolls.length > 0">
       <ul>
-        <li *ngFor="let roll of this.character.rolls">{{roll}}</li>
+        <li *ngFor="let roll of this.character.rolls">
+          <div class="dice-rolls-row">
+            <h5>{{roll.name}}</h5>
+            <p>{{roll.dice_string}}</p>
+            <button (click)="rollDice(roll)">Roll!</button>
+            <!-- RESULTS -->
+            <h5 *ngIf="roll.last_rolls.length > 0">{{roll.total}}</h5>
+            <p *ngIf="roll.last_rolls.length > 0">{{roll.last_rolls}}</p>
+            <button (click)="removeRoll(roll)">X</button>
+          </div>
+        </li>
       </ul>
     </div>
-  </div>
 
+  </div>
 
   <a href="#" class="card-link" (click)="deleteCharacter(character)">Delete</a>
 </div>

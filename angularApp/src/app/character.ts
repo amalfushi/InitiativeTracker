@@ -1,3 +1,5 @@
+import { Roll } from "./roll";
+
 export class Character {
     id: number;
     name: string = "";
@@ -5,8 +7,8 @@ export class Character {
     initiative: number;
     health: number;
     defense: number;
-    new_roll: string = "3d6";
-    rolls: string[] = [];
+    new_roll: Roll;
+    rolls: Roll[] = [];
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

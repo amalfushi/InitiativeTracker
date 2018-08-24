@@ -34,10 +34,10 @@
           min=0 max=100>
 
         <!-- HEALTH -->
-        <input placeholder="Health" type="number" [(ngModel)]="newCharacter.health" (keyup.enter)="addCharacter()">
+        <input class="new-character-initiative" placeholder="Health" type="number" [(ngModel)]="newCharacter.health" (keyup.enter)="addCharacter()">
 
         <!-- DEFENSE -->
-        <input placeholder="Defense" type="number" [(ngModel)]="newCharacter.defense" (keyup.enter)="addCharacter()">
+        <input class="new-character-initiative" placeholder="Defense" type="number" [(ngModel)]="newCharacter.defense" (keyup.enter)="addCharacter()">
 
         <!-- PLAYER NAME -->
         <input placeholder="Player Name" [(ngModel)]="newCharacter.player_name" (keyup.enter)="addCharacter()">
