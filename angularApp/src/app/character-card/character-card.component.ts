@@ -30,9 +30,10 @@ export class CharacterCardComponent implements OnInit {
     if (this.diceService.validateDiceString(roll.dice_string)) {
       roll.dice_string = roll.dice_string.replace(/[d]+/g, 'd'); ///Remove any repeated 'd' otherwise they end up as 1d1
       this.character.rolls.push(roll);
+      //Reset this characters new roll
+      this.character.new_roll = new Roll('');
     }
-    //Reset this characters new roll
-    this.character.new_roll = new Roll('');
+//TODO: add Invalid Dice String Warning
   }
 
   rollDice(roll): void {

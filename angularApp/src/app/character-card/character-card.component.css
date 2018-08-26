@@ -1,6 +1,6 @@
 .card {
     min-width: 320px;
-    /* width: 500px; */
+    width: 60vw;
     /* display: inline-flex; */
     border-left: none;
     border-top-left-radius: 0px;
@@ -27,4 +27,8 @@
 
 .dice-rolls-row h5 p{
     display: inline-block;
+}
+
+li {
+    margin-top: 5px;
 }

@@ -21,29 +21,34 @@
       <input type="number" class="card-subtitle" [(ngModel)]="character.defense">
     </div>
 
-    <!-- ROLE INPUT -->
-    <div class="rolls-form">
-      <h5>Rolls</h5>
-      <input class="new-roll" placeholder="EX: '2d10+(1d6-1)'" autofocus="" [(ngModel)]="character.new_roll.dice_string" (keyup.enter)="addRoll()">
-      <input class="new-roll" placeholder="Roll Name" autofocus="" [(ngModel)]="character.new_roll.name" (keyup.enter)="addRoll()">
-      <button (click)="addRoll()">+</button>
-    </div>
+    <!-- DICE ROLLS -->
+    <div>
+      <button class="btn btn-primary btn-block" data-toggle="collapse" [attr.href]="'#'+character.name" role="button" aria-expanded="false" aria-controls="rolls">Dice
+        Rolls</button>
+      <div class="collapse" [attr.id]="character.name">
+        <!-- ROLE INPUT -->
+        <input class="new-roll" placeholder="EX: 3d6+4" autofocus="" [(ngModel)]="character.new_roll.dice_string" (keyup.enter)="addRoll()">
+        <input class="new-roll" placeholder="Roll Name" autofocus="" [(ngModel)]="character.new_roll.name" (keyup.enter)="addRoll()">
+        <button class="btn btn-primary" (click)="addRoll()">+</button>
 
-    <!-- AVAILABLE ROLLS -->
-    <div class="dice-rolls-container" *ngIf="this.character.rolls.length > 0">
-      <ul>
-        <li *ngFor="let roll of this.character.rolls">
-          <div class="dice-rolls-row">
-            <h5>{{roll.name}}</h5>
-            <p>{{roll.dice_string}}</p>
-            <button (click)="rollDice(roll)">Roll!</button>
-            <!-- RESULTS -->
-            <h5 *ngIf="roll.last_rolls.length > 0">{{roll.total}}</h5>
-            <p *ngIf="roll.last_rolls.length > 0">{{roll.last_rolls}}</p>
-            <button (click)="removeRoll(roll)">X</button>
-          </div>
-        </li>
-      </ul>
+
+        <!-- AVAILABLE ROLLS -->
+        <div class="dice-rolls-container" *ngIf="this.character.rolls.length > 0">
+          <ul>
+            <li *ngFor="let roll of this.character.rolls" class="dice-rolls-row">
+              <!-- <div class="dice-rolls-row"> -->
+              <h5>{{roll.name}}</h5>
+              <p>{{roll.dice_string}}</p>
+              <button class="btn btn-primary" (click)="rollDice(roll)">Roll!</button>
+              <!-- RESULTS -->
+              <h5 *ngIf="roll.last_rolls.length > 0">{{roll.total}}</h5>
+              <p *ngIf="roll.last_rolls.length > 0">{{roll.last_rolls}}</p>
+              <button class="btn btn-primary" (click)="removeRoll(roll)">X</button>
+              <!-- </div> -->
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
   </div>

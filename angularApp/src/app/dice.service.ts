@@ -40,7 +40,6 @@ export class DiceService {
         let sum = 0;
         for (let i = 0; i < val2; i++) {
           let roll = Math.ceil(Math.random() * val1);
-          // console.log(roll);
           diceRolls.push(roll);
           sum += roll;
         }
@@ -77,14 +76,12 @@ export class DiceService {
 
       // current token is an opening brace, push to operations
       else if (tokens[i] === "(") {
-        console.log(this.values, this.ops)
         this.ops.push(tokens[i])
       }
 
       //Closing brace encountered
       else if (tokens[i] === ")") {
         while (this.ops[this.ops.length - 1] != "(") {
-          console.log(this.values, this.ops)
           //Solve everything inside;
           this.values.push(this.performOperation());
         }
@@ -97,7 +94,6 @@ export class DiceService {
 
         // Catch any strings missing the number of dice to roll. eg: 'd20'
         if (tokens[i] == "d" && (!tokens[i - 1] || (tokens[i - 1] < "0" || tokens[i - 1] > "9"))) this.values.push(1);
-        console.log(this.values, this.ops)
         // While the current token has a lower order of operation than the one at the top of the stack, do those operations instead;
         while (this.ops.length && this.getPrecedence(tokens[i]) <= this.getPrecedence(this.ops[this.ops.length - 1])) {
           this.values.push(this.performOperation());
@@ -112,7 +108,6 @@ export class DiceService {
 
     // Entire string has been parsed at this point.  Finish applying remaining operations
     while (this.ops.length) {
-      // console.log(operations)
       this.values.push(this.performOperation());
     }
 
@@ -146,7 +141,7 @@ export class DiceService {
   }
 
   validateDiceString(str: string): boolean {
-    if (str.match(/(\d*)([dD]\d*)((?:[+*-](?:\d+|\([d]*\)))*)(?:\+([dD]\d*))?/) && //Vaguelly match any dice string
+    if (str.match(/(\d*)([dD]\d+)((?:[+*-](?:\d+|\([d]*\)))*)(?:\+([dD]\d*))?/) && //Vaguelly match any dice string
       !str.match(/[a-ce-zA-CE-Z!@#$%^&*]/)) { //And no other characters
       return true
     }

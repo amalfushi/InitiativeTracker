@@ -15,12 +15,6 @@
     margin-top:5px;
 }
 
-input {
-    border: solid thin rgba(0,0,0,.125);
-    border-radius: .25rem;
-    padding-left: 5px;
-}
-
 .new-character {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -31,14 +25,11 @@ input {
     width: 100px;
 }
 
-ul, li{
-    margin: 0px;
-    padding: 0px;
-}
 
 li {
     display: flex;
     width: 100%;
+    margin-top: 5px;
 }
 
 .character-form {

@@ -1,15 +1,15 @@
 <div class="container">
   <div class="col align-self-center">
-    <!-- <header class="header"> -->
-    <h1 class="row">Initiative</h1>
-    <div class="row ">
+    <h1 class="row">Initiative Helper</h1>
 
+    <div class="row ">
       <!-- ADD CHARACTER FORM -->
       <div class="input-group character-form">
         <!-- DROPDOWN BUTTON -->
         <div class="input-group-prepend">
           <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="collapse" href="#characterDetails"
             role="button" aria-expanded="false" aria-controls="characterDetails">
+            Options
             <span class="sr-only">Toggle Dropdown</span>
           </button>
         </div>
@@ -28,26 +28,21 @@
 
     <!-- COLLAPSE -- ADDITIONAL INFO -->
     <div class="row">
-      <div class="collapse " id="characterDetails">
+      <div class="collapse" id="characterDetails">
         <!-- INITIATIVE -->
         <input class="new-character-initiative" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative" (keyup.enter)="addCharacter()"
           min=0 max=100>
-
         <!-- HEALTH -->
         <input class="new-character-initiative" placeholder="Health" type="number" [(ngModel)]="newCharacter.health" (keyup.enter)="addCharacter()">
-
         <!-- DEFENSE -->
         <input class="new-character-initiative" placeholder="Defense" type="number" [(ngModel)]="newCharacter.defense" (keyup.enter)="addCharacter()">
-
         <!-- PLAYER NAME -->
         <input placeholder="Player Name" [(ngModel)]="newCharacter.player_name" (keyup.enter)="addCharacter()">
       </div>
     </div>
-    <!-- </header> -->
 
     <!-- INITIATIVE -->
     <section class="initiative row" *ngIf="characters.length > 0">
-      <!-- list of characters in this initiative -->
       <ul class="row" dnd-sortable-container [sortableData]="characters">
         <li class="character" *ngFor="let character of characters, let i = index" dnd-sortable [sortableIndex]="i" [dragData]="character"
           (onDropSuccess)="onMove($event, i)">
@@ -57,15 +52,13 @@
       </ul>
     </section>
 
-    <button *ngIf="characters.length > 1" (click)="sortCharacters()">Sort Initiative</button>
-
     <footer class="footer row" *ngIf="characters.length > 0">
-      <span class="character-count">
-        <strong>{{characters.length}}</strong> {{characters.length === 1 ? 'character' : 'characters'}}
-      </span>
+      <p>
+        <button class="btn btn-primary" *ngIf="characters.length > 1" (click)="sortCharacters()">Sort Initiative</button>
+        <span class="character-count">
+          <strong>{{characters.length}}</strong> {{characters.length === 1 ? 'character' : 'characters'}}
+        </span>
+      </p>
     </footer>
   </div>
 </div>
-<!-- <ul>
-  <li *ngFor="let roll of tests"><p>"{{roll.roll_string}}"  -  <strong>{{roll.total}}</strong>  -  {{roll.dice_rolls}}</p></li>
-</ul> -->
