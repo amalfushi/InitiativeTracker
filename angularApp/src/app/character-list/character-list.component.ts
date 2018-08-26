@@ -26,19 +26,19 @@ export class CharacterListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.newCharacter.name ="barnaby";
-    this.newCharacter.player_name="jones";
-    this.newCharacter.initiative=18;
-    this.newCharacter.health = 7;
-    this.newCharacter.defense = 14;
-    this.addCharacter();
-    this.newCharacter.name ="Dustin";
-    this.newCharacter.player_name="Schroeder";
-    this.newCharacter.initiative=12;
-    this.newCharacter.health = 30;
-    this.newCharacter.defense = 12;
-    // this.newCharacter.
-    this.addCharacter();
+    //////////For Easy Testing////////////
+    // this.newCharacter.name ="barnaby";
+    // this.newCharacter.player_name="jones";
+    // this.newCharacter.initiative=18;
+    // this.newCharacter.health = 7;
+    // this.newCharacter.defense = 14;
+    // this.addCharacter();
+    // this.newCharacter.name ="Dustin";
+    // this.newCharacter.player_name="Schroeder";
+    // this.newCharacter.initiative=12;
+    // this.newCharacter.health = 30;
+    // this.newCharacter.defense = 12;
+    // this.addCharacter();
   }
 
   addCharacter(): Character {
