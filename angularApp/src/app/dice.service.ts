@@ -142,7 +142,7 @@ export class DiceService {
 
   validateDiceString(str: string): boolean {
     if (str.match(/(\d*)([dD]\d+)((?:[+*-](?:\d+|\([d]*\)))*)(?:\+([dD]\d*))?/) && //Vaguelly match any dice string
-      !str.match(/[a-ce-zA-CE-Z!@#$%^&*]/)) { //And no other characters
+      !str.match(/[a-ce-zA-CE-Z!@#$%^&]/)) { //And no other characters
       return true
     }
     return false;
