@@ -15,6 +15,9 @@ export class CharacterCardComponent implements OnInit {
   constructor(private diceService: DiceService) { }
 
   ngOnInit() {
+    this.character.new_roll.dice_string = "3d6+4"
+    this.character.new_roll.name = "Fireball"
+    this.addRoll();
   }
 
   deleteCharacter(): void {

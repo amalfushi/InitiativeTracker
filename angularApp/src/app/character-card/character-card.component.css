@@ -1,11 +1,14 @@
+
+:host {
+    display: block;
+    width: 100%;
+}
+
 .card {
     min-width: 320px;
-    width: 60vw;
-    /* display: inline-flex; */
     border-left: none;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    margin: 5px, 0px;
 }
 
 .card-header{
@@ -13,10 +16,20 @@
     justify-content: space-between;
 }
 
-.card-link{
-    display: block;
-    text-align: right;
-    padding-right: 1.25rem;
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.card-initiative{
+    height: 2em;
+    background: transparent;
+}
+
+.new-roll{
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0px;
 }
 
 .dice-rolls-row{
@@ -31,4 +44,12 @@
 
 li {
     margin-top: 5px;
+}
+
+.number {
+    width: 3em;
+}
+
+.stat, .character-name {
+    font-weight: bold;
 }
