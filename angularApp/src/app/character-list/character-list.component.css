@@ -25,6 +25,10 @@
     width: 100px;
 }
 
+ul{
+    min-width: 400px;
+    width: 100%;
+}
 
 li {
     display: flex;

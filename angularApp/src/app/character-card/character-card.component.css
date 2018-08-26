@@ -2,10 +2,11 @@
 :host {
     display: block;
     width: 100%;
+    min-width: 400px;
 }
 
 .card {
-    min-width: 320px;
+    min-width: 400x;
     border-left: none;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
