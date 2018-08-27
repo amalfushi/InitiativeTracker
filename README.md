@@ -3,6 +3,7 @@
 A simple initiative tracker for tabletop gaming. Implements drag and drop functionality to allow for easily re-organizing.
 
 [Live Demo](http://34.221.24.81/)
+
 *Very in-development*
 
 ### In Progress
@@ -10,8 +11,11 @@ A simple initiative tracker for tabletop gaming. Implements drag and drop functi
 * Clean up CSS/HTML & Improve usability
 
 ### Completed
-X Character cards 
-X Initiative number as you create characters
-X Auto-sorting
-X Attacks/dice-rolls
-X Simple game-agnostic stats on character cards
+* Character cards 
+* Initiative number as you create characters
+* Auto-sorting
+* Attacks/dice-rolls
+* Simple game-agnostic stats on character cards
+
+
+[WaSAC Slides](https://docs.google.com/presentation/d/1C853Ehui1W3SB4Zmid_tC0WStr6jYLrCcqgr5kd_fDY/edit?usp=sharing)
