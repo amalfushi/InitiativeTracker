@@ -7,7 +7,7 @@ export class Character {
     initiative: number;
     health: number;
     defense: number;
-    new_roll: Roll;
+    new_roll: Roll = new Roll("");
     rolls: Roll[] = [];
 
     constructor(values: Object = {}) {

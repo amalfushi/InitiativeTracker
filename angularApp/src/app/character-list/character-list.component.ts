@@ -6,39 +6,32 @@ import { Component, OnInit } from '@angular/core';
 import { Character } from '../character';
 import { CharacterDataService } from '../character-data.service';
 import { DiceService } from '../dice.service';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-character-list',
   templateUrl: './character-list.component.html',
   styleUrls: ['./character-list.component.css'],
-  providers: [CharacterDataService, DiceService]
+  providers: [CharacterDataService, DiceService, UserService]
 })
 export class CharacterListComponent implements OnInit {
   newCharacter: Character;
   characters: Character[];
   tests: Object[];
+  user: User;
 
-  constructor(private characterDataService: CharacterDataService) {
+  constructor(private characterDataService: CharacterDataService, private userService: UserService) {
     this.newCharacter = new Character();
-    // this.tests = [];
-    this.characters = this.getCharacters();
   }
 
 
   ngOnInit() {
-    //////////For Easy Testing////////////
-    // this.newCharacter.name ="barnaby";
-    // this.newCharacter.player_name="jones";
-    // this.newCharacter.initiative=18;
-    // this.newCharacter.health = 7;
-    // this.newCharacter.defense = 14;
-    // this.addCharacter();
-    // this.newCharacter.name ="Dustin";
-    // this.newCharacter.player_name="Schroeder";
-    // this.newCharacter.initiative=12;
-    // this.newCharacter.health = 30;
-    // this.newCharacter.defense = 12;
-    // this.addCharacter();
+
+    this.user = this.userService.setTestUser();
+    this.characterDataService.addUserCharacter(this.user.characters[0]);
+    this.characterDataService.addUserCharacter(this.user.characters[1]);
+    this.characters = this.characterDataService.getAllCharacters();
   }
 
   addCharacter(): Character {
@@ -56,6 +49,11 @@ export class CharacterListComponent implements OnInit {
   }
 
   getCharacters(): Character[] {
+    if (this.user.isDemo){
+      for (let char of this.user.characters) {
+        this.characterDataService.addCharacter(char);
+      }
+    }
     return this.characterDataService.getAllCharacters();
   }
 

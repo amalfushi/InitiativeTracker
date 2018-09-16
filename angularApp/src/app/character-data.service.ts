@@ -17,7 +17,13 @@ export class CharacterDataService {
     if (!character.initiative) character.initiative = 0;
     character.new_roll = new Roll('');
     this.characters.push(character);
+
     if (character.initiative >= 0) this.sortCharacters();
+    return this;
+  }
+
+  addUserCharacter(character: Character): CharacterDataService {
+    this.characters.push(character)
     return this;
   }
 

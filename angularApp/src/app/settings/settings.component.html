@@ -1,0 +1,17 @@
+<p>
+  {{user.username}}
+</p>
+
+<ul>
+  <li *ngFor="let stat of user.character_settings">{{stat}}</li>
+</ul>
+
+<ul>
+  <li *ngFor="let char of user.characters">
+    <p>{{char.name}} {{char.player_name}} {{char.initiative}}</p>
+    <ul>
+      <li>Health {{char.health}}</li>
+      <li>Defense {{char.defense}}</li>
+    </ul>
+  </li>
+</ul>

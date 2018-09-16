@@ -1,30 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from "@angular/http";
+
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { DndModule } from "ng2-dnd";
+
+//components
 import { CharacterListComponent } from './character-list/character-list.component';
 import { CharacterCardComponent } from './character-card/character-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatCardModule } from '@angular/material/card';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CharacterListComponent,
-    CharacterCardComponent
+    CharacterCardComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AppRoutingModule,
     DndModule.forRoot(),
     BrowserAnimationsModule,
-    MatExpansionModule,
-    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
