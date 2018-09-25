@@ -15,7 +15,11 @@
     <!-- CARD BODY -->
     <div class="card-body">
       <div class="row">
-        <div class="col">
+        <div class="col" *ngFor="let stat of user.character_settings">
+          <label class="stat" *ngIf="character.stats[stat] != null">{{stat}}</label>
+          <input type="number" *ngIf="character.stats[stat] != null" class="number" [(ngModel)]="character.stats[stat]">
+        </div>
+        <!-- <div class="col">
           <div *ngIf="character.health" class="character-optional-details">
             <label class="stat">Health</label>
             <input type="number" class="number" [(ngModel)]="character.health">
@@ -26,7 +30,7 @@
             <label class="stat">Defense</label>
             <input type="number" class="number" [(ngModel)]="character.defense">
           </div>
-        </div>
+        </div> -->
       </div>
 
 

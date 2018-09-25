@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Character } from '../character';
 import { DiceService } from '../dice.service';
 import { Roll } from '../roll';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-character-card',
@@ -12,9 +14,12 @@ export class CharacterCardComponent implements OnInit {
   @Input() character: Character;
   @Output() toDelete = new EventEmitter();
 
-  constructor(private diceService: DiceService) { }
+  user: User = new User();
+  
+  constructor(private diceService: DiceService, private userService: UserService) { }
 
   ngOnInit() {
+    this.user = this.userService.getUser();
   }
 
   deleteCharacter(): void {

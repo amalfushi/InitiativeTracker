@@ -3,7 +3,10 @@
 </p>
 
 <ul>
-  <li *ngFor="let stat of user.character_settings">{{stat}}</li>
+  <li *ngFor="let stat of user.character_settings">{{stat}} <button (click)="removeSetting(stat)">X</button></li>
+  <li>
+    <input [(ngModel)]="newSetting" placeholder="Add Character Stat" (keyup.enter)="addSetting()">
+  </li>
 </ul>
 
 <ul>
@@ -15,3 +18,5 @@
     </ul>
   </li>
 </ul>
+
+<button [routerLink]="['/']">Initiative</button>

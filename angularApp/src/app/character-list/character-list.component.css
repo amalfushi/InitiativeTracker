@@ -11,6 +11,21 @@
     font-weight: bolder; 
 }
 
+.optionals{
+    margin: 0px;
+}
+.collapsing{
+    width:100%;
+    display: flex;
+    flex-wrap: inherit;
+}
+.show{
+    width:100%;
+    display: flex;
+    flex-wrap: inherit;
+}
+
+
 .row{
     margin-top:5px;
 }
@@ -21,8 +36,9 @@
     width: 267px;
 }
 
-.new-character-initiative{
-    width: 100px;
+.stat{
+    min-width: 100px;
+    width: 100%;
 }
 
 ul{
@@ -38,4 +54,5 @@ li {
 
 .character-form {
     min-width: 320px;
+    margin-left: 15px;
 }

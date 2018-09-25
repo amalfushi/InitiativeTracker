@@ -12,38 +12,33 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-character-list',
   templateUrl: './character-list.component.html',
-  styleUrls: ['./character-list.component.css'],
-  providers: [CharacterDataService, DiceService, UserService]
+  styleUrls: ['./character-list.component.css']
 })
 export class CharacterListComponent implements OnInit {
-  newCharacter: Character;
-  characters: Character[];
-  tests: Object[];
-  user: User;
+  newCharacter: Character = new Character();
+  characters: Character[] = [];
+  user: User = new User;
 
-  constructor(private characterDataService: CharacterDataService, private userService: UserService) {
-    this.newCharacter = new Character();
+  constructor(private _characterService: CharacterDataService, private _userService: UserService) {
   }
 
 
   ngOnInit() {
-
-    this.user = this.userService.setTestUser();
-    this.characterDataService.addUserCharacter(this.user.characters[0]);
-    this.characterDataService.addUserCharacter(this.user.characters[1]);
-    this.characters = this.characterDataService.getAllCharacters();
+    // this.user = this.userService.setTestUser();
+    this.setUser();
+    this.characters = this._characterService.getAllCharacters();
   }
 
   addCharacter(): Character {
     if (this.newCharacter.name !== "") {
-      this.characterDataService.addCharacter(this.newCharacter);
+      this._characterService.addCharacter(this.newCharacter);
       this.newCharacter = new Character();
     }
     return this.newCharacter;
   }
 
   removeCharacter(character): Character[] {
-    this.characterDataService.deleteCharacterById(character.id);
+    this._characterService.deleteCharacterById(character.id);
     this.characters = this.getCharacters();
     return this.characters;
   }
@@ -51,19 +46,23 @@ export class CharacterListComponent implements OnInit {
   getCharacters(): Character[] {
     if (this.user.isDemo){
       for (let char of this.user.characters) {
-        this.characterDataService.addCharacter(char);
+        this._characterService.addCharacter(char);
       }
     }
-    return this.characterDataService.getAllCharacters();
+    return this._characterService.getAllCharacters();
   }
 
   sortCharacters(): Character[] {
-    this.characters = this.characterDataService.sortCharacters();
+    this.characters = this._characterService.sortCharacters();
     return this.characters;
   }
 
   onMove(character: Character, position: number): Character[] {
-    this.characterDataService.moveCharacter(character, position);
+    this._characterService.moveCharacter(character, position);
     return this.characters;
+  }
+
+  setUser(){
+    this.user = this._userService.getUser();
   }
 }

@@ -1,8 +1,8 @@
 import { Character } from "./character";
 
 export class User {
+    character_settings: string[] = ["Health", "Defense"];
     characters: Character[] = [];
     username: string = "";
-    character_settings: string[];
     isDemo: boolean = true;
 }
