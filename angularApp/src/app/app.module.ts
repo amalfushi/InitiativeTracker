@@ -12,6 +12,9 @@ import { CharacterListComponent } from './character-list/character-list.componen
 import { CharacterCardComponent } from './character-card/character-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SettingsComponent } from './settings/settings.component';
+import { DiceService } from './dice.service';
+import { CharacterDataService } from './character-data.service';
+import { UserService } from './user.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,7 @@ import { SettingsComponent } from './settings/settings.component';
     DndModule.forRoot(),
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [UserService, CharacterDataService, DiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
