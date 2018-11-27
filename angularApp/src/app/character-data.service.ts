@@ -27,8 +27,8 @@ export class CharacterDataService {
     return this;
   }
 
-  deleteCharacterById(id: number): CharacterDataService {
-    this.characters = this.characters.filter(c => c.id !== id);
+  deleteCharacterById(character: Character): CharacterDataService {
+    this.characters = this.characters.filter(c => c != character);
     return this;
   }
 

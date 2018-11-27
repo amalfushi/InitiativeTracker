@@ -10,6 +10,7 @@ export class UserService {
   user: User = null;
 
   constructor(private characterService: CharacterDataService) {
+    // this.setTestUser();
   }
 
   setTestUser(): User {
@@ -19,6 +20,7 @@ export class UserService {
 
     let c1 = new Character();
     Object.assign(c1, {
+      id: 1,
       name: "barnaby",
       player_name: "jones",
       initiative: 18,
@@ -35,6 +37,7 @@ export class UserService {
 
     let c2 = new Character();
     Object.assign(c2, {
+      id: 2,
       name: "Dustin",
       player_name: "Schroeder",
       initiative: 12,
@@ -46,9 +49,8 @@ export class UserService {
       rolls: [new Roll("2d10+7+2dd4", "Flaming Mace")]
     })
 
-    this.user.characters = [c1, c2]
-    this.characterService.addCharacter(c1);
-    this.characterService.addCharacter(c2);
+    this.saveCharacter(c1);
+    this.saveCharacter(c2);
     this.user.isDemo = false;
     return this.user;
   }
@@ -66,5 +68,16 @@ export class UserService {
   removeSetting(setting: string): UserService {
     this.user.character_settings = this.user.character_settings.filter((s) => s != setting);
     return this;
+  }
+
+  saveCharacter(character: Character): Character {
+    if (this.user.saved_characters.filter((e) => e.id == character.id).length > 0) {
+      //update character (put)
+      return character;
+    } else {
+      //add character (post)
+      this.user.saved_characters.push(character);
+      return character;
+    }
   }
 }

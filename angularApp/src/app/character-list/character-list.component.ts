@@ -16,6 +16,7 @@ import { UserService } from '../user.service';
 })
 export class CharacterListComponent implements OnInit {
   newCharacter: Character = new Character();
+  selectedSavedChar: Character = null;
   characters: Character[] = [];
   user: User = new User;
 
@@ -24,31 +25,39 @@ export class CharacterListComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.user = this.userService.setTestUser();
-    this.setUser();
+    this.user = this.setUser();
     this.characters = this._characterService.getAllCharacters();
   }
 
-  addCharacter(): Character {
+  addNewCharacter(): Character {
     if (this.newCharacter.name !== "") {
       this._characterService.addCharacter(this.newCharacter);
       this.newCharacter = new Character();
     }
     return this.newCharacter;
   }
+  addSavedCharacter(): Character {
+    console.log(this.selectedSavedChar.name)
+    if (this.selectedSavedChar != null) {
+      Object.assign(this.newCharacter, this.selectedSavedChar);
+      this._characterService.addCharacter(this.newCharacter);
+      this.newCharacter = new Character;
+      return this.newCharacter;
+    }
+  }
 
   removeCharacter(character): Character[] {
-    this._characterService.deleteCharacterById(character.id);
+    this._characterService.deleteCharacterById(character);
     this.characters = this.getCharacters();
     return this.characters;
   }
 
   getCharacters(): Character[] {
-    if (this.user.isDemo){
-      for (let char of this.user.characters) {
-        this._characterService.addCharacter(char);
-      }
-    }
+    // if (!this.user.isDemo) {
+    //   for (let char of this.user.saved_characters) {
+    //     this._characterService.addCharacter(char);
+    //   }
+    // }
     return this._characterService.getAllCharacters();
   }
 
@@ -62,7 +71,9 @@ export class CharacterListComponent implements OnInit {
     return this.characters;
   }
 
-  setUser(){
-    this.user = this._userService.getUser();
+  setUser(): User {
+    return this._userService.getUser();
   }
+
+
 }

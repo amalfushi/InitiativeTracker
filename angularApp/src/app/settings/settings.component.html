@@ -2,6 +2,7 @@
   {{user.username}}
 </p>
 
+<h3>Character Card Stats</h3>
 <ul>
   <li *ngFor="let stat of user.character_settings">{{stat}} <button (click)="removeSetting(stat)">X</button></li>
   <li>
@@ -9,14 +10,18 @@
   </li>
 </ul>
 
-<ul>
-  <li *ngFor="let char of user.characters">
-    <p>{{char.name}} {{char.player_name}} {{char.initiative}}</p>
-    <ul>
-      <li>Health {{char.health}}</li>
-      <li>Defense {{char.defense}}</li>
-    </ul>
-  </li>
-</ul>
+<h3>Saved Characters</h3>
 
+<div class="card" *ngFor="let char of user.saved_characters">
+  <div>
+    <div class="card-header">
+      <p><span class="bold">{{char.name}}</span> {{char.player_name}}</p>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li *ngFor="let stat of objectKeys(char.stats)">{{stat}} {{char.stats[stat]}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
 <button [routerLink]="['/']">Initiative</button>

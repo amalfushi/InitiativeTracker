@@ -1,6 +1,5 @@
 <div class="container">
   <h1>Initiative Helper</h1>
-  <!-- <div class="col align-self-center"> -->
 
   <div class="row ">
     <!-- ADD CHARACTER FORM -->
@@ -16,11 +15,11 @@
 
       <!-- CHARACTER NAME -->
       <input class="new-character" placeholder="Character Name" autofocus="" [(ngModel)]="newCharacter.name"
-        (keyup.enter)="addCharacter()">
+        (keyup.enter)="addNewCharacter()">
 
       <!-- ADD BUTTON -->
       <div class="input-group-append">
-        <button class="btn btn-primary" (click)="addCharacter()">
+        <button class="btn btn-primary" (click)="addNewCharacter()">
           Add
         </button>
       </div>
@@ -33,16 +32,16 @@
 
       <!-- INITIATIVE -->
       <div class="col">
-        <input class="stat" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative" (keyup.enter)="addCharacter()"
+        <input class="stat" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative" (keyup.enter)="addNewCharacter()"
           min=0 max=100>
       </div>
       <!-- PLAYER NAME -->
       <div class="col">
-        <input class="stat" placeholder="Player Name" [(ngModel)]="newCharacter.player_name" (keyup.enter)="addCharacter()">
+        <input class="stat" placeholder="Player Name" [(ngModel)]="newCharacter.player_name" (keyup.enter)="addNewCharacter()">
       </div>
       <div class="col" *ngFor="let stat of user.character_settings">
         <!-- User Defined or Default Stats -->
-        <input class="stat" type="number" [placeholder]="stat" [(ngModel)]="newCharacter.stats[stat]" (keyup.enter)="addCharacter()">
+        <input class="stat" type="number" [placeholder]="stat" [(ngModel)]="newCharacter.stats[stat]" (keyup.enter)="addNewCharacter()">
       </div>
     </div>
   </div>
@@ -67,6 +66,17 @@
     </p>
   </footer>
 </div>
-<!-- </div> -->
+
+<div *ngIf="user.isDemo == false">
+  <!-- add saved characters -->
+  <select name="saved_characters" id="saved_characters" [(ngModel)]="selectedSavedChar">
+    <option [ngValue]="null">... Add Saved Character</option>
+    <option *ngFor="let char of user.saved_characters" [ngValue]="char">
+      {{char.name}}
+    </option>
+  </select>
+
+  <button class="btn-primary btn-sm" (click)="addSavedCharacter()" *ngIf="selectedSavedChar != null">+</button>
+</div>
 
 <button [routerLink]="['/settings']">Settings</button>

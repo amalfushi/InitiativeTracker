@@ -30,11 +30,14 @@ export class SettingsComponent implements OnInit {
     if (this.newSetting.match(/[a-zA-Z0-9]/)){
       this._userService.addSetting(this.newSetting.trim());
       this.newSetting = "";
-      console.log(this.user.character_settings)
     }
   }
 
   removeSetting(setting: string) {
     this._userService.removeSetting(setting);
+  }
+
+  objectKeys(obj): string[] {
+    return Object.keys(obj);
   }
 }
