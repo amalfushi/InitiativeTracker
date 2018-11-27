@@ -2,24 +2,38 @@
 :host {
     display: block;
     width: 100%;
-    min-width: 400px;
 }
 
 .card {
-    min-width: 400x;
+    min-width: 260px;
     border-left: none;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
 }
 
+.flex-grow {
+    flex: 1 0 auto;
+}
+
 .card-header{
     display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-header-title{
+    display: inline-flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
 .card-footer {
     display: flex;
     justify-content: flex-end;
+}
+
+.card-footer > button {
+    margin-left: 7px;
 }
 
 .card-initiative{
@@ -34,13 +48,26 @@
 }
 
 .dice-rolls-row{
-    display: flex;
+    display: block;
     flex-direction: row;
     justify-content: space-between;
+    width:100%;
 }
 
-.dice-rolls-row h5 p{
-    display: inline-block;
+.dice-rolls-container{
+    display: flex;
+    flex-direction: column;
+}
+.roll-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.gap-left {
+    margin-left: 2.5px;
+}
+.gap-right {
+    margin-right: 2.5px;
 }
 
 li {
@@ -53,4 +80,13 @@ li {
 
 .stat, .character-name {
     font-weight: bold;
+}
+
+h4 {
+    word-break: break-word;
+}
+
+hr {
+    margin-left: 0;
+    margin-right: 0;
 }

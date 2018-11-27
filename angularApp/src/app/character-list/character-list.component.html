@@ -1,71 +1,74 @@
-<div class="container">
-  <h1>Initiative Helper</h1>
+<section class="new_character_form bg-light">
+  <div class="container">
+    <div class="row">
+      <!-- ADD CHARACTER FORM -->
+      <div class="col-lg-6">
+        <div class="input-group character-form">
+          <!-- DROPDOWN BUTTON -->
+          <div class="input-group-prepend">
+            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="collapse"
+              href="#characterDetails" role="button" aria-expanded="false" aria-controls="characterDetails">
+              Options
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+          </div>
 
-  <div class="row ">
-    <!-- ADD CHARACTER FORM -->
-    <div class="input-group character-form">
-      <!-- DROPDOWN BUTTON -->
-      <div class="input-group-prepend">
-        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="collapse" href="#characterDetails"
-          role="button" aria-expanded="false" aria-controls="characterDetails">
-          Options
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
+          <!-- CHARACTER NAME -->
+          <input class="new-character" placeholder="Character Name" autofocus="" [(ngModel)]="newCharacter.name"
+            (keyup.enter)="addNewCharacter()">
+
+          <!-- ADD BUTTON -->
+          <div class="input-group-append">
+            <button class="btn btn-primary" (click)="addNewCharacter()">
+              Add
+            </button>
+          </div>
+        </div>
       </div>
 
-      <!-- CHARACTER NAME -->
-      <input class="new-character" placeholder="Character Name" autofocus="" [(ngModel)]="newCharacter.name"
-        (keyup.enter)="addNewCharacter()">
-
-      <!-- ADD BUTTON -->
-      <div class="input-group-append">
-        <button class="btn btn-primary" (click)="addNewCharacter()">
-          Add
-        </button>
+      <!-- COLLAPSE -- ADDITIONAL INFO -->
+      <div class="row collapse optionals" id="characterDetails">
+        <!-- INITIATIVE -->
+        <div class="col-lg-3 col-md-6 ">
+          <input class="stat optionals-input" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative"
+            (keyup.enter)="addNewCharacter()" min=0 max=100>
+        </div>
+        <!-- PLAYER NAME -->
+        <div class="col-lg-3 col-md-6">
+          <input class="stat optionals-input" placeholder="Player Name" [(ngModel)]="newCharacter.player_name"
+            (keyup.enter)="addNewCharacter()">
+        </div>
+        <div class="col-lg-3 col-md-6" *ngFor="let stat of user.character_settings">
+          <!-- User Defined or Default Stats -->
+          <input class="stat optionals-input" type="number" [placeholder]="stat" [(ngModel)]="newCharacter.stats[stat]"
+            (keyup.enter)="addNewCharacter()">
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- COLLAPSE -- ADDITIONAL INFO -->
-  <div class="row">
-    <div class="collapse optionals" id="characterDetails">
-
-      <!-- INITIATIVE -->
-      <div class="col">
-        <input class="stat" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative" (keyup.enter)="addNewCharacter()"
-          min=0 max=100>
-      </div>
-      <!-- PLAYER NAME -->
-      <div class="col">
-        <input class="stat" placeholder="Player Name" [(ngModel)]="newCharacter.player_name" (keyup.enter)="addNewCharacter()">
-      </div>
-      <div class="col" *ngFor="let stat of user.character_settings">
-        <!-- User Defined or Default Stats -->
-        <input class="stat" type="number" [placeholder]="stat" [(ngModel)]="newCharacter.stats[stat]" (keyup.enter)="addNewCharacter()">
-      </div>
-    </div>
-  </div>
-
-  <!-- INITIATIVE -->
-  <section class="initiative row" *ngIf="characters.length > 0">
+<!-- INITIATIVE -->
+<section class="initiative bg-white">
+  <div class="container">
     <ul class="row" dnd-sortable-container [sortableData]="characters">
-      <li class="character" *ngFor="let character of characters, let i = index" dnd-sortable [sortableIndex]="i"
-        [dragData]="character" (onDropSuccess)="onMove($event, i)">
+      <li class="character col-xl-3 col-lg-4 col-md-6 mb-4" *ngFor="let character of characters, let i = index" dnd-sortable
+        [sortableIndex]="i" [dragData]="character" (onDropSuccess)="onMove($event, i)">
         <span dnd-sortable-handle class="handle">=</span>
         <app-character-card [character]="character" (toDelete)="removeCharacter($event)"></app-character-card>
       </li>
     </ul>
-  </section>
+  </div>
+</section>
 
-  <footer class="footer row" *ngIf="characters.length > 0">
-    <p>
-      <button class="btn btn-primary" *ngIf="characters.length > 1" (click)="sortCharacters()">Sort Initiative</button>
-      <span class="character-count">
-        <strong>{{characters.length}}</strong> {{characters.length === 1 ? 'character' : 'characters'}}
-      </span>
-    </p>
-  </footer>
-</div>
+<footer class="footer" *ngIf="characters.length > 0">
+  <p>
+    <button class="btn btn-primary" *ngIf="characters.length > 1" (click)="sortCharacters()">Sort Initiative</button>
+    <span class="character-count">
+      <strong>{{characters.length}}</strong> {{characters.length === 1 ? 'character' : 'characters'}}
+    </span>
+  </p>
+</footer>
 
 <div *ngIf="user.isDemo == false">
   <!-- add saved characters -->
@@ -78,5 +81,4 @@
 
   <button class="btn-primary btn-sm" (click)="addSavedCharacter()" *ngIf="selectedSavedChar != null">+</button>
 </div>
-
 <button [routerLink]="['/settings']">Settings</button>

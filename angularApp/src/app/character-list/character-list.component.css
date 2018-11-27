@@ -11,14 +11,25 @@
     font-weight: bolder; 
 }
 
+.input-group{
+    flex-wrap: nowrap;
+}
+
+.optionals-input{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .optionals{
     margin: 0px;
 }
+
 .collapsing{
     width:100%;
     display: flex;
     flex-wrap: inherit;
 }
+
 .show{
     width:100%;
     display: flex;
@@ -44,6 +55,7 @@
 ul{
     min-width: 400px;
     width: 100%;
+    padding-left: 0px;
 }
 
 li {
@@ -52,7 +64,10 @@ li {
     margin: 5px 0px;
 }
 
-.character-form {
+.initiative {
+    min-height: 50px;
+}
+/* .character-form {
     min-width: 320px;
     margin-left: 15px;
-}
+} */
