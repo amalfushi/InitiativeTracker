@@ -1,11 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
-/* 
-* {
-    margin: 0;
-    padding: 0;
-} */
 
 input {
     border: solid thin rgba(0,0,0,.125);
@@ -15,6 +9,18 @@ input {
 section {
     padding-top: 5rem;
     padding-bottom: 2.5rem;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.center {
+    justify-content: center;
 }
 
 @media (min-width: 1200px) {
