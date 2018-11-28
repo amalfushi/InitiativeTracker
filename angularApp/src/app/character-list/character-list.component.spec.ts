@@ -34,7 +34,7 @@ describe('Character List Component', () => {
   })
 
   it('.addCharacter should do nothing', ()=> {
-    component.addCharacter();
+    component.addNewCharacter();
     expect(component.characters.length).toBe(0);
   })
 
@@ -45,7 +45,7 @@ describe('Character List Component', () => {
     testCharacter.initiative = 12;
 
     component.newCharacter = testCharacter;
-    component.addCharacter();
+    component.addNewCharacter();
     expect(component.characters[0]).toBe(testCharacter);
   })
 

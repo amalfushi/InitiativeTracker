@@ -2,30 +2,33 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Character } from '../character';
 import { DiceService } from '../dice.service';
 import { Roll } from '../roll';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-character-card',
   templateUrl: './character-card.component.html',
   styleUrls: ['./character-card.component.css'],
 })
+
 export class CharacterCardComponent implements OnInit {
   @Input() character: Character;
+  @Input() nameMod: number;
   @Output() toDelete = new EventEmitter();
 
-  constructor(private diceService: DiceService) { }
+  user: User = new User();
+
+  constructor(private diceService: DiceService, private userService: UserService) { }
 
   ngOnInit() {
-    /////////For easy testing///////
-    // this.character.new_roll.dice_string = "3d6+4"
-    // this.character.new_roll.name = "Fireball"
-    // this.addRoll();
+    this.user = this.userService.getUser();
   }
 
   deleteCharacter(): void {
     this.toDelete.emit(this.character);
   }
 
-  addRoll():void {
+  addRoll(): void {
     //Normalize the new dice roll
     let roll = this.character.new_roll;
     roll.dice_string = roll.dice_string.trim().toLowerCase();
@@ -37,15 +40,23 @@ export class CharacterCardComponent implements OnInit {
       //Reset this characters new roll
       this.character.new_roll = new Roll('');
     }
-//TODO: add Invalid Dice String Warning
+    //TODO: add Invalid Dice String Warning
   }
 
   rollDice(roll): void {
     this.diceService.evaluateRoll(roll);
   }
 
-  removeRoll(roll):void {
+  removeRoll(roll): void {
     let rolls = this.character.rolls;
     this.character.rolls = rolls.filter((r) => r != roll);
+  }
+
+  saveCharacter(): void {
+    this.userService.saveCharacter(this.character);
+  }
+
+  objectKeys(obj): string[] {
+    return Object.keys(obj);
   }
 }

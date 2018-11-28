@@ -12,17 +12,18 @@ export class CharacterDataService {
   addCharacter(character: Character): CharacterDataService {
     if (character.name !== "")
       if (!character.id) {
-        character.id = this.lastId++;
+        character.id = ++this.lastId;
       }
     if (!character.initiative) character.initiative = 0;
     character.new_roll = new Roll('');
     this.characters.push(character);
+
     if (character.initiative >= 0) this.sortCharacters();
     return this;
   }
 
-  deleteCharacterById(id: number): CharacterDataService {
-    this.characters = this.characters.filter(c => c.id !== id);
+  deleteCharacterById(character: Character): CharacterDataService {
+    this.characters = this.characters.filter(c => c != character);
     return this;
   }
 
