@@ -10,8 +10,10 @@ import { UserService } from '../user.service';
   templateUrl: './character-card.component.html',
   styleUrls: ['./character-card.component.css'],
 })
+
 export class CharacterCardComponent implements OnInit {
   @Input() character: Character;
+  @Input() nameMod: number;
   @Output() toDelete = new EventEmitter();
 
   user: User = new User();

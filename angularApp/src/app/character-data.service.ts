@@ -12,18 +12,13 @@ export class CharacterDataService {
   addCharacter(character: Character): CharacterDataService {
     if (character.name !== "")
       if (!character.id) {
-        character.id = this.lastId++;
+        character.id = ++this.lastId;
       }
     if (!character.initiative) character.initiative = 0;
     character.new_roll = new Roll('');
     this.characters.push(character);
 
     if (character.initiative >= 0) this.sortCharacters();
-    return this;
-  }
-
-  addUserCharacter(character: Character): CharacterDataService {
-    this.characters.push(character)
     return this;
   }
 

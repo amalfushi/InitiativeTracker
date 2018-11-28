@@ -2,11 +2,11 @@
   <div class="container">
     <div class="row">
       <!-- ADD CHARACTER FORM -->
-      <div class="col-lg-6">
-        <div class="input-group character-form">
+      <div class="col-lg-6 center">
+        <div class="input-group character-form center">
           <!-- DROPDOWN BUTTON -->
           <div class="input-group-prepend">
-            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="collapse"
+            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="collapse"
               href="#characterDetails" role="button" aria-expanded="false" aria-controls="characterDetails">
               Options
               <span class="sr-only">Toggle Dropdown</span>
@@ -19,15 +19,31 @@
 
           <!-- ADD BUTTON -->
           <div class="input-group-append">
-            <button class="btn btn-primary" (click)="addNewCharacter()">
-              Add
-            </button>
+            <button class="btn btn-secondary" (click)="addNewCharacter()">Add</button>
           </div>
         </div>
       </div>
 
-      <!-- COLLAPSE -- ADDITIONAL INFO -->
-      <div class="row collapse optionals" id="characterDetails">
+      <div class="col-lg-6 center">
+        <div *ngIf="user.saved_characters.length" class="input-group center">
+          <!-- add saved characters -->
+          <div class="input-group-prepend">
+            <select class="form-control" name="saved_characters" id="saved_characters" [(ngModel)]="selectedSavedChar">
+              <option [ngValue]="null">Copy Saved Character</option>
+              <option *ngFor="let char of user.saved_characters" [ngValue]="char">{{char.name}}</option>
+            </select>
+          </div>
+
+          <div class=input-group-append>
+            <button type="button" class="btn btn-secondary" (click)="addSavedCharacter()" [disabled]="selectedSavedChar == null">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLLAPSE -- ADDITIONAL INFO -->
+    <div class="row">
+      <div class="collapse optionals" id="characterDetails">
         <!-- INITIATIVE -->
         <div class="col-lg-3 col-md-6 ">
           <input class="stat optionals-input" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative"
@@ -50,12 +66,13 @@
 
 <!-- INITIATIVE -->
 <section class="initiative bg-white">
-  <div class="container">
+  <div class="container-fluid">
+    <!-- <div class="row"> -->
     <ul class="row" dnd-sortable-container [sortableData]="characters">
-      <li class="character col-xl-3 col-lg-4 col-md-6 mb-4" *ngFor="let character of characters, let i = index" dnd-sortable
-        [sortableIndex]="i" [dragData]="character" (onDropSuccess)="onMove($event, i)">
-        <span dnd-sortable-handle class="handle">=</span>
-        <app-character-card [character]="character" (toDelete)="removeCharacter($event)"></app-character-card>
+      <li class="character col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let character of this.characters, let i = index"
+        dnd-sortable [sortableIndex]="i" [dragData]="character" (onDropSuccess)="onMove($event, i)">
+        
+        <app-character-card [nameMod]="i" [character]="character" (toDelete)="removeCharacter($event)"></app-character-card>
       </li>
     </ul>
   </div>
@@ -63,22 +80,9 @@
 
 <footer class="footer" *ngIf="characters.length > 0">
   <p>
-    <button class="btn btn-primary" *ngIf="characters.length > 1" (click)="sortCharacters()">Sort Initiative</button>
+    <button class="btn btn-secondary" *ngIf="characters.length > 1" (click)="sortCharacters()">Sort Initiative</button>
     <span class="character-count">
       <strong>{{characters.length}}</strong> {{characters.length === 1 ? 'character' : 'characters'}}
     </span>
   </p>
 </footer>
-
-<div *ngIf="user.isDemo == false">
-  <!-- add saved characters -->
-  <select name="saved_characters" id="saved_characters" [(ngModel)]="selectedSavedChar">
-    <option [ngValue]="null">... Add Saved Character</option>
-    <option *ngFor="let char of user.saved_characters" [ngValue]="char">
-      {{char.name}}
-    </option>
-  </select>
-
-  <button class="btn-primary btn-sm" (click)="addSavedCharacter()" *ngIf="selectedSavedChar != null">+</button>
-</div>
-<button [routerLink]="['/settings']">Settings</button>

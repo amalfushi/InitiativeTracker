@@ -1,27 +1,51 @@
-<p>
-  {{user.username}}
-</p>
+<section class="greetings bg-white">
+  <div class="container">
+    <h3 *ngIf="user.username">Hi, {{user.username}}</h3>
+    <h3 *ngIf="!user.username">Hi, Game Master</h3>
+  </div>
+</section>
 
-<h3>Character Card Stats</h3>
-<ul>
-  <li *ngFor="let stat of user.character_settings">{{stat}} <button (click)="removeSetting(stat)">X</button></li>
-  <li>
-    <input [(ngModel)]="newSetting" placeholder="Add Character Stat" (keyup.enter)="addSetting()">
-  </li>
-</ul>
-
-<h3>Saved Characters</h3>
-
-<div class="card" *ngFor="let char of user.saved_characters">
-  <div>
-    <div class="card-header">
-      <p><span class="bold">{{char.name}}</span> {{char.player_name}}</p>
-    </div>
-    <div class="card-body">
-      <ul>
-        <li *ngFor="let stat of objectKeys(char.stats)">{{stat}} {{char.stats[stat]}}</li>
-      </ul>
+<!-- New Character Settings -->
+<section class="character-card-settings bg-light">
+  <div class="container">
+    <h3>Stats for New Characters</h3>
+    <div class="row">
+      <div class="col-lg-2 col-md-4 col-sm-12" *ngFor="let stat of user.character_settings; let i = index; trackBy:trackByFn">
+        <div class="input-group" >
+          <input class="form-control input-group-prepend" [(ngModel)]="user.character_settings[i]">
+          <button class="btn btn-danger input-group-append" (click)="removeSetting(stat)">X</button>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-12">
+        <div class="input-group">
+          <input class="form-control input-group-prepend" [(ngModel)]="newSetting" placeholder="Add Character Stat" (keyup.enter)="addSetting()">
+          <button class="btn btn-secondary input-group-append" (click)="addSetting()" (disabled)="!newSetting">+</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<button [routerLink]="['/']">Initiative</button>
+</section>
+
+<!-- Saved Character Cards -->
+<section class="user-saved-characters bg-white">
+  <div class="container">
+    <h3>Saved Characters</h3>
+    <div class="row">
+      <div class="character col-xl-3 col-lg-4 col-md-6 mb-4" *ngFor="let char of user.saved_characters">
+        <div class="card">
+          <div class="card-header">
+            <p><span class="bold">{{char.name}}</span> {{char.player_name}}</p>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li *ngFor="let stat of objectKeys(char.stats), let i = index">
+                <input #box [value]="stat" (keyup.enter)="updateCharStatKey(char, stat, box.value)">
+                <input type="number" [(ngModel)]="char.stats[stat]">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

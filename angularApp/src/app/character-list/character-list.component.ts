@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// import { DndModule } from 'ng2-dnd';
-// import { MatExpansionModule } from '@angular/material/expansion';
-// import { MatCardModule } from '@angular/material/card';
-
 import { Character } from '../character';
 import { CharacterDataService } from '../character-data.service';
-import { DiceService } from '../dice.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { Roll } from '../roll';
 
 @Component({
   selector: 'app-character-list',
@@ -34,14 +30,18 @@ export class CharacterListComponent implements OnInit {
       this._characterService.addCharacter(this.newCharacter);
       this.newCharacter = new Character();
     }
+    this.getCharacters();
     return this.newCharacter;
   }
-  addSavedCharacter(): Character {
-    console.log(this.selectedSavedChar.name)
+  addSavedCharacter(): Character{
     if (this.selectedSavedChar != null) {
-      Object.assign(this.newCharacter, this.selectedSavedChar);
-      this._characterService.addCharacter(this.newCharacter);
-      this.newCharacter = new Character;
+      //Create a deep copy of the Character Object
+      this.newCharacter = new Character(this.selectedSavedChar);
+      this.newCharacter.rolls = []
+      for(let r of this.selectedSavedChar.rolls) {
+        this.newCharacter.rolls.push(new Roll(JSON.parse(JSON.stringify(r))));
+      }
+      this.addNewCharacter();
       return this.newCharacter;
     }
   }
@@ -53,11 +53,6 @@ export class CharacterListComponent implements OnInit {
   }
 
   getCharacters(): Character[] {
-    // if (!this.user.isDemo) {
-    //   for (let char of this.user.saved_characters) {
-    //     this._characterService.addCharacter(char);
-    //   }
-    // }
     return this._characterService.getAllCharacters();
   }
 
@@ -67,7 +62,7 @@ export class CharacterListComponent implements OnInit {
   }
 
   onMove(character: Character, position: number): Character[] {
-    this._characterService.moveCharacter(character, position);
+    // this._characterService.moveCharacter(character, position);
     return this.characters;
   }
 
