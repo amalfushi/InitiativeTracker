@@ -16,3 +16,7 @@ A simple initiative tracker for tabletop gaming. Implements drag and drop functi
 * Auto-sorting
 * Attacks/dice-rolls
 * Simple game-agnostic stats on character cards
+* User Defined Stats
+* Saving Character Chards
+* Adding Copies of Character Cards
+* Substantial style updates
