@@ -4,8 +4,7 @@ export class Roll {
     last_rolls: string = "";
     total: number = null;
 
-    constructor(roll: string, name: string = "") {
-        this.dice_string = roll;
-        this.name = name;
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
     }
 }
