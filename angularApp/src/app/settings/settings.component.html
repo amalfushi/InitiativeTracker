@@ -10,13 +10,13 @@
   <div class="container">
     <h3>Stats for New Characters</h3>
     <div class="row">
-      <div class="col-lg-2 col-md-4 col-sm-12" *ngFor="let stat of user.character_settings; let i = index; trackBy:trackByFn">
+      <div class="col-lg-3 col-md-4 col-sm-12" *ngFor="let stat of user.character_settings; let i = index; trackBy:trackByFn">
         <div class="input-group" >
           <input class="form-control input-group-prepend" [(ngModel)]="user.character_settings[i]">
           <button class="btn btn-danger input-group-append" (click)="removeSetting(stat)">X</button>
         </div>
       </div>
-      <div class="col-lg-2 col-md-4 col-sm-12">
+      <div class="col-lg-3 col-md-4 col-sm-12">
         <div class="input-group">
           <input class="form-control input-group-prepend" [(ngModel)]="newSetting" placeholder="Add Character Stat" (keyup.enter)="addSetting()">
           <button class="btn btn-secondary input-group-append" (click)="addSetting()" (disabled)="!newSetting">+</button>
