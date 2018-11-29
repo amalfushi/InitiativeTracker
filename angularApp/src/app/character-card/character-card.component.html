@@ -26,33 +26,39 @@
       <!-- DICE ROLLS -->
       <div class="row">
         <div class="col">
-          <button class="btn btn-primary btn-block" data-toggle="collapse" [attr.href]="'#'+character.name + nameMod"
+          <button class="btn btn-primary btn-block dropdown-toggle" data-toggle="collapse" [attr.href]="'#'+character.name + nameMod"
             role="button" aria-expanded="false" aria-controls="rolls">Dice Rolls
           </button>
         </div>
       </div>
       <div class="collapse" [attr.id]="character.name + nameMod">
+        <div class="row">
+          <h5 class="col center">Results</h5>
+          <h5 class="col center">Roll</h5>
+        </div>
+        <hr>
 
 
         <!-- AVAILABLE ROLLS -->
         <div class="dice-rolls-container" *ngIf="this.character.rolls.length > 0">
           <div *ngFor="let roll of this.character.rolls" class="dice-rolls-row">
             <div class="row">
-              <div class="col">
-                <h5 class="inline">{{roll.name}}</h5>
-                <p class="inline">{{roll.dice_string}}</p>
-              </div>
 
               <!-- RESULTS -->
               <div class="col">
-                <h5 *ngIf="roll.last_rolls.length > 0" class="inline">{{roll.total}}</h5>
-                <p *ngIf="roll.last_rolls.length > 0" class="inline">{{roll.last_rolls}}</p>
+                <h5 *ngIf="roll.last_rolls.length > 0" class="inline center">{{roll.total}}</h5>
+                <p *ngIf="roll.last_rolls.length > 0" class="inline center">{{roll.last_rolls}}</p>
+              </div>
+
+              <div class="col">
+                <h5 class="inline center">{{roll.name}}</h5>
+                <p class="inline center">{{roll.dice_string}}</p>
               </div>
             </div>
 
             <div class="roll-footer">
-              <button class="btn btn-primary col gap-right" (click)="rollDice(roll)">Roll!</button>
-              <button class="btn btn-primary col gap-left" (click)="removeRoll(roll)">X</button>
+              <button class="btn btn-success col-9 gap-right" (click)="rollDice(roll)">Roll!</button>
+              <button class="btn btn-danger col-3 gap-left" (click)="removeRoll(roll)">X</button>
             </div>
             <hr size="2">
           </div>
@@ -61,11 +67,10 @@
         <!-- ROLE INPUT -->
         <div class="new-roll">
           <div class="input-group">
-            <input class="col" placeholder="Roll Name" autofocus="" [(ngModel)]="character.new_roll.name" (keyup.enter)="addRoll()">
-            <input class="col" placeholder="EX: 3d6+4" autofocus="" [(ngModel)]="character.new_roll.dice_string"
-              (keyup.enter)="addRoll()">
+            <input class="col" placeholder="Roll Name" autofocus="" [(ngModel)]="new_roll_name" (keyup.enter)="addRoll()">
+            <input class="col" placeholder="EX: 3d6+4" autofocus="" [(ngModel)]="new_roll_string" (keyup.enter)="addRoll()">
             <div class="input-group-append">
-              <button type="button" class="btn btn-primary" role="button" (click)="addRoll()">+</button>
+              <button type="button" class="btn btn-primary" role="button" (click)="addRoll()" [disabled]="new_roll_name == '' || new_roll_string == '' || !diceService.validateDiceString(new_roll_string)">+</button>
             </div>
           </div>
         </div>

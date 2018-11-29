@@ -21,6 +21,7 @@ ul{
 
 .center {
     justify-content: center;
+    text-align: center;
 }
 
 @media (min-width: 1200px) {

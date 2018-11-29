@@ -17,6 +17,8 @@ export class CharacterCardComponent implements OnInit {
   @Output() toDelete = new EventEmitter();
 
   user: User = new User();
+  new_roll_name:string = "";
+  new_roll_string:string = "";
 
   constructor(private diceService: DiceService, private userService: UserService) { }
 
@@ -30,15 +32,17 @@ export class CharacterCardComponent implements OnInit {
 
   addRoll(): void {
     //Normalize the new dice roll
-    let roll = this.character.new_roll;
-    roll.dice_string = roll.dice_string.trim().toLowerCase();
+    // let roll = this.character.new_roll;
+    this.new_roll_string= this.new_roll_string.trim().toLowerCase();
 
     //Validate dice string
-    if (this.diceService.validateDiceString(roll.dice_string)) {
-      roll.dice_string = roll.dice_string.replace(/[d]+/g, 'd'); ///Remove any repeated 'd' otherwise they end up as 1d1
+    if (this.diceService.validateDiceString(this.new_roll_string)) {
+      this.new_roll_string = this.new_roll_string.replace(/[d]+/g, 'd'); ///Remove any repeated 'd' otherwise they end up as 1d1
+      let roll = new Roll({"name": this.new_roll_name, "dice_string": this.new_roll_string})
       this.character.rolls.push(roll);
       //Reset this characters new roll
-      this.character.new_roll = new Roll('');
+      this.new_roll_name = "";
+      this.new_roll_string = "";
     }
     //TODO: add Invalid Dice String Warning
   }

@@ -15,13 +15,15 @@ import { SettingsComponent } from './settings/settings.component';
 import { DiceService } from './dice.service';
 import { CharacterDataService } from './character-data.service';
 import { UserService } from './user.service';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CharacterListComponent,
     CharacterCardComponent,
-    SettingsComponent
+    SettingsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
