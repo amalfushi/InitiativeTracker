@@ -1,5 +1,5 @@
 <section class="new_character_form bg-light">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <!-- ADD CHARACTER FORM -->
       <!-- <div class="col-lg-6 center"> -->
@@ -7,8 +7,8 @@
         <div class="input-group character-form center">
           <!-- DROPDOWN BUTTON -->
           <div class="input-group-prepend">
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="collapse"
-              href="#characterDetails" role="button" aria-expanded="false" aria-controls="characterDetails">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="collapse" href="#characterDetails"
+              role="button" aria-expanded="false" aria-controls="characterDetails">
               Options
               <span class="sr-only">Toggle Dropdown</span>
             </button>
@@ -69,24 +69,28 @@
 </section>
 
 <!-- INITIATIVE -->
-<section class="initiative bg-white">
-  <div class="container-fluid">
+<section class="bg-white">
+  <div class="container-fluid initiative-container">
     <!-- <div class="row"> -->
-    <ul class="row" dnd-sortable-container [sortableData]="characters">
-      <li class="character col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let character of this.characters, let i = index"
+    <ul dnd-sortable-container class="initiative" [sortableData]="characters">
+      <li class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let character of this.characters, let i = index"
         dnd-sortable [sortableIndex]="i" [dragData]="character" (onDropSuccess)="onMove($event, i)">
 
-        <app-character-card [nameMod]="i" [character]="character" (toDelete)="removeCharacter($event)"></app-character-card>
+        <app-character-card [nameMod]="i" [character]="character" (toDelete)="removeCharacter($event)" [ngClass]="{'character' : true,'cur_turn': i == cur_turn}"></app-character-card>
       </li>
     </ul>
   </div>
 </section>
 
-<footer class="footer" *ngIf="characters.length > 0">
-  <p>
-    <button class="btn btn-secondary" *ngIf="characters.length > 1" (click)="sortCharacters()">Sort Initiative</button>
-    <span class="character-count">
+<section class="footer container-fluid">
+    <div class="row">
+      <button class="btn btn-secondary col square" [disabled]="characters.length < 2" (click)="sortCharacters()">Sort Initiative</button>
+      <!-- <label><span class="character-count">
       <strong>{{characters.length}}</strong> {{characters.length === 1 ? 'character' : 'characters'}}
     </span>
-  </p>
-</footer>
+  </label> -->
+
+      <button class="btn btn-sm btn-primary col-2 square" [disabled]="characters.length < 2" (click)="prevTurn()">&lt;-</button>
+      <button class="btn btn-sm btn-primary col-2 square" [disabled]="characters.length < 2" (click)="nextTurn()">-&gt;</button>
+    </div>
+  </section>
