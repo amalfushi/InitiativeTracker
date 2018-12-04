@@ -71,8 +71,10 @@ export class UserService {
     return this;
   }
 
+  
+  //////////////THIS BREAKS DICE ROLLS when adding a dice roll to a saved character without dice rolls
   saveCharacter(character: Character): Character {
-    let found = this.user.saved_characters.findIndex((e)=>e.id === character.id);
+    let found = this.user.saved_characters.findIndex((e)=> e.id === character.id);
     if (found < 0) {//add character (post)
       this.user.saved_characters.push(character);
       return character;
@@ -80,11 +82,13 @@ export class UserService {
       //Deep copy data
       let target = this.user.saved_characters[found]
       target.initiative = character.initiative;
-      target.rolls = []
+      let newRolls = []
       for (let r of character.rolls) {
         const rToString = JSON.parse(JSON.stringify(r)); //lazy way to copy roll
-        target.rolls.push(new Roll(rToString));
+        newRolls.push(new Roll(rToString));
       }
+      target.rolls = newRolls;
+      console.log(character, target)
       return target;
     }
   }
