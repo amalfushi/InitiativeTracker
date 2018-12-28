@@ -34,12 +34,7 @@ export class CharacterListComponent implements OnInit {
     this.getCharacters();
     return this.newCharacter;
   }
-<<<<<<< HEAD
-
   addSavedCharacter(): Character {
-=======
-  addSavedCharacter(): Character{
->>>>>>> parent of 91ba9d8... +Add Character Copies to User Saved Characters as New Character
     if (this.selectedSavedChar != null) {
       //Create a deep copy of the Character Object
       this.newCharacter = new Character(this.selectedSavedChar);
