@@ -10,6 +10,7 @@ export class Character {
     new_roll: Roll = new Roll("");
     rolls: Roll[] = [];
     stats: Object = {};
+    isCopy: boolean = false;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

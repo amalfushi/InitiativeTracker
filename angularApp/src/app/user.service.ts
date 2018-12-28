@@ -72,7 +72,7 @@ export class UserService {
   }
 
   saveCharacter(character: Character): Character {
-    let found = this.user.saved_characters.findIndex((e)=>e.id === character.id);
+    let found = this.user.saved_characters.findIndex((e) => e.id === character.id);
     if (found < 0) {//add character (post)
       this.user.saved_characters.push(character);
       return character;
@@ -87,5 +87,12 @@ export class UserService {
       }
       return target;
     }
+  }
+
+  copyCharacterToSaved(character: Character): Character {
+    character.id = ++this.characterService.lastId;
+    character.isCopy = false;
+    this.user.saved_characters.push(character);
+    return character;
   }
 }
