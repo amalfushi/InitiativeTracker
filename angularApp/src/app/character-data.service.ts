@@ -10,10 +10,9 @@ export class CharacterDataService {
   constructor() { }
 
   addCharacter(character: Character): CharacterDataService {
-    if (character.name !== "")
-      if (!character.id) {
-        character.id = ++this.lastId;
-      }
+    if (!character.id) {
+      character.id = ++this.lastId;
+    }
     if (!character.initiative) character.initiative = 0;
     // character.new_roll = new Roll('');
     this.characters.push(character);
@@ -37,6 +36,10 @@ export class CharacterDataService {
   //   Object.assign(character, values);
   //   return character;
   // }
+  
+  getLastId(): number {
+    return this.lastId;
+  }
 
   getAllCharacters(): Character[] {
     return this.characters;

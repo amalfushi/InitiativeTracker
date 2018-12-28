@@ -4,6 +4,7 @@ import { DiceService } from '../dice.service';
 import { Roll } from '../roll';
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { CharacterDataService } from '../character-data.service';
 
 @Component({
   selector: 'app-character-card',
@@ -20,7 +21,7 @@ export class CharacterCardComponent implements OnInit {
   new_roll_name:string = "";
   new_roll_string:string = "";
 
-  constructor(private diceService: DiceService, private userService: UserService) { }
+  constructor(private diceService: DiceService, private userService: UserService, private characterService: CharacterDataService) { }
 
   ngOnInit() {
     this.user = this.userService.getUser();
@@ -56,8 +57,16 @@ export class CharacterCardComponent implements OnInit {
     this.character.rolls = rolls.filter((r) => r != roll);
   }
 
-  saveCharacter(): void {
+  updateCharacter(): void {
     this.userService.saveCharacter(this.character);
+  }
+
+  saveToNewCharacter(): void {
+    this.userService.copyCharacterToSaved(this.character);
+  }
+
+  validateDiceString(): boolean {
+    return this.diceService.validateDiceString(this.new_roll_string);
   }
 
   objectKeys(obj): string[] {

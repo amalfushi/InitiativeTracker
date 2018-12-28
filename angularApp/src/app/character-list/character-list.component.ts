@@ -47,6 +47,7 @@ export class CharacterListComponent implements OnInit {
       for (let r of this.selectedSavedChar.rolls) {
         this.newCharacter.rolls.push(new Roll(JSON.parse(JSON.stringify(r))));
       }
+      this.newCharacter.isCopy = true;
       this.addNewCharacter();
       return this.newCharacter;
     }
