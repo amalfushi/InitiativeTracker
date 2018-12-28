@@ -61,10 +61,6 @@ export class CharacterCardComponent implements OnInit {
     this.userService.saveCharacter(this.character);
   }
 
-  saveToNewCharacter(): void {
-    this.userService.copyCharacterToSaved(this.character);
-  }
-
   validateDiceString(): boolean {
     return this.diceService.validateDiceString(this.new_roll_string);
   }
