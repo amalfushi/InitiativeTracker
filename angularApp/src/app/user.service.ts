@@ -74,7 +74,11 @@ export class UserService {
   
   //////////////THIS BREAKS DICE ROLLS when adding a dice roll to a saved character without dice rolls
   saveCharacter(character: Character): Character {
+<<<<<<< HEAD
     let found = this.user.saved_characters.findIndex((e)=> e.id === character.id);
+=======
+    let found = this.user.saved_characters.findIndex((e)=>e.id === character.id);
+>>>>>>> parent of 91ba9d8... +Add Character Copies to User Saved Characters as New Character
     if (found < 0) {//add character (post)
       this.user.saved_characters.push(character);
       return character;
