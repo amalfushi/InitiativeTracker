@@ -1,13 +1,14 @@
 <section class="new_character_form bg-light">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <!-- ADD CHARACTER FORM -->
-      <div class="col-lg-6 center">
+      <!-- <div class="col-lg-6 center"> -->
+      <div [ngClass]="{'col-lg-6 center': true, 'offset-lg-3' : !user.saved_characters.length}">
         <div class="input-group character-form center">
           <!-- DROPDOWN BUTTON -->
           <div class="input-group-prepend">
-            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="collapse"
-              href="#characterDetails" role="button" aria-expanded="false" aria-controls="characterDetails">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="collapse" href="#characterDetails"
+              role="button" aria-expanded="false" aria-controls="characterDetails">
               Options
               <span class="sr-only">Toggle Dropdown</span>
             </button>
@@ -19,13 +20,37 @@
 
           <!-- ADD BUTTON -->
           <div class="input-group-append">
-            <button class="btn btn-secondary" (click)="addNewCharacter()">Add</button>
+            <button class="btn btn-secondary" (click)="addNewCharacter()" [disabled]="newCharacter.name == ''">Add</button>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-6 center">
-        <div *ngIf="user.saved_characters.length" class="input-group center">
+
+      <!-- COLLAPSE -- ADDITIONAL INFO -->
+      <div class="col-12 order-1 order-lg-2">
+        <div class="row">
+          <div class="collapse optionals" id="characterDetails">
+            <!-- INITIATIVE -->
+            <div class="col-lg-3 col-md-6 ">
+              <input class="stat optionals-input" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative"
+                (keyup.enter)="addNewCharacter()" min=0 max=100>
+            </div>
+            <!-- PLAYER NAME -->
+            <div class="col-lg-3 col-md-6">
+              <input class="stat optionals-input" placeholder="Player Name" [(ngModel)]="newCharacter.player_name"
+                (keyup.enter)="addNewCharacter()">
+            </div>
+            <div class="col-lg-3 col-md-6" *ngFor="let stat of user.character_settings">
+              <!-- User Defined or Default Stats -->
+              <input class="stat optionals-input" type="number" [placeholder]="stat" [(ngModel)]="newCharacter.stats[stat]"
+                (keyup.enter)="addNewCharacter()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 center order-2 order-lg-1" *ngIf="user.saved_characters.length">
+        <div class="input-group center">
           <!-- add saved characters -->
           <div class="input-group-prepend">
             <select class="form-control" name="saved_characters" id="saved_characters" [(ngModel)]="selectedSavedChar">
@@ -40,49 +65,32 @@
         </div>
       </div>
     </div>
-
-    <!-- COLLAPSE -- ADDITIONAL INFO -->
-    <div class="row">
-      <div class="collapse optionals" id="characterDetails">
-        <!-- INITIATIVE -->
-        <div class="col-lg-3 col-md-6 ">
-          <input class="stat optionals-input" placeholder="Initiative" type="number" [(ngModel)]="newCharacter.initiative"
-            (keyup.enter)="addNewCharacter()" min=0 max=100>
-        </div>
-        <!-- PLAYER NAME -->
-        <div class="col-lg-3 col-md-6">
-          <input class="stat optionals-input" placeholder="Player Name" [(ngModel)]="newCharacter.player_name"
-            (keyup.enter)="addNewCharacter()">
-        </div>
-        <div class="col-lg-3 col-md-6" *ngFor="let stat of user.character_settings">
-          <!-- User Defined or Default Stats -->
-          <input class="stat optionals-input" type="number" [placeholder]="stat" [(ngModel)]="newCharacter.stats[stat]"
-            (keyup.enter)="addNewCharacter()">
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
 <!-- INITIATIVE -->
-<section class="initiative bg-white">
-  <div class="container-fluid">
+<section class="bg-white">
+  <div class="container-fluid initiative-container">
     <!-- <div class="row"> -->
-    <ul class="row" dnd-sortable-container [sortableData]="characters">
-      <li class="character col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let character of this.characters, let i = index"
+    <ul dnd-sortable-container class="initiative" [sortableData]="characters">
+      <li class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let character of this.characters, let i = index"
         dnd-sortable [sortableIndex]="i" [dragData]="character" (onDropSuccess)="onMove($event, i)">
-        
-        <app-character-card [nameMod]="i" [character]="character" (toDelete)="removeCharacter($event)"></app-character-card>
+
+        <app-character-card [nameMod]="i" [character]="character" (toDelete)="removeCharacter($event)" [ngClass]="{'character' : true,'cur_turn': i == cur_turn}"></app-character-card>
       </li>
     </ul>
   </div>
 </section>
 
-<footer class="footer" *ngIf="characters.length > 0">
-  <p>
-    <button class="btn btn-secondary" *ngIf="characters.length > 1" (click)="sortCharacters()">Sort Initiative</button>
-    <span class="character-count">
+<section class="footer container-fluid">
+    <div class="row">
+      <button class="btn btn-secondary col square" [disabled]="characters.length < 2" (click)="sortCharacters()">Sort Initiative</button>
+      <!-- <label><span class="character-count">
       <strong>{{characters.length}}</strong> {{characters.length === 1 ? 'character' : 'characters'}}
     </span>
-  </p>
-</footer>
+  </label> -->
+
+      <button class="btn btn-sm btn-primary col-2 square" [disabled]="characters.length < 2" (click)="prevTurn()">&lt;-</button>
+      <button class="btn btn-sm btn-primary col-2 square" [disabled]="characters.length < 2" (click)="nextTurn()">-&gt;</button>
+    </div>
+  </section>

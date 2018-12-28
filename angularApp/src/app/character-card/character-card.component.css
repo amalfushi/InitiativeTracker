@@ -104,9 +104,6 @@ hr {
     margin-right: 0;
 }
 
-@media (max-width: 575.98px) {
-    .card{
-        /* width: 100%; */
-        flex: 1 0 auto;
-    }
+.titles{
+    margin-top: 7px;
 }

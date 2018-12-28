@@ -15,6 +15,7 @@ export class CharacterListComponent implements OnInit {
   selectedSavedChar: Character = null;
   characters: Character[] = [];
   user: User = new User;
+  cur_turn: number = 0;
 
   constructor(private _characterService: CharacterDataService, private _userService: UserService) {
   }
@@ -34,12 +35,12 @@ export class CharacterListComponent implements OnInit {
     return this.newCharacter;
   }
 
-  addSavedCharacter(): Character{
+  addSavedCharacter(): Character {
     if (this.selectedSavedChar != null) {
       //Create a deep copy of the Character Object
       this.newCharacter = new Character(this.selectedSavedChar);
       this.newCharacter.rolls = []
-      for(let r of this.selectedSavedChar.rolls) {
+      for (let r of this.selectedSavedChar.rolls) {
         this.newCharacter.rolls.push(new Roll(JSON.parse(JSON.stringify(r))));
       }
       this.newCharacter.isCopy = true;
@@ -72,5 +73,15 @@ export class CharacterListComponent implements OnInit {
     return this._userService.getUser();
   }
 
+  nextTurn(): number {
+    this.cur_turn++;
+    if (this.cur_turn >= this.characters.length) this.cur_turn = 0;
+    return this.cur_turn;
+  }
 
+  prevTurn(): number {
+    this.cur_turn--;
+    if (this.cur_turn < 0) this.cur_turn = this.characters.length - 1;
+    return this.cur_turn;
+  }
 }

@@ -14,7 +14,7 @@ export class CharacterDataService {
       character.id = ++this.lastId;
     }
     if (!character.initiative) character.initiative = 0;
-    character.new_roll = new Roll('');
+    // character.new_roll = new Roll('');
     this.characters.push(character);
 
     if (character.initiative >= 0) this.sortCharacters();
