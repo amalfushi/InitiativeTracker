@@ -70,7 +70,7 @@
             <input class="col" placeholder="Roll Name" autofocus="" [(ngModel)]="new_roll_name" (keyup.enter)="addRoll()">
             <input class="col" placeholder="EX: 3d6+4" autofocus="" [(ngModel)]="new_roll_string" (keyup.enter)="addRoll()">
             <div class="input-group-append">
-              <button type="button" class="btn btn-primary" role="button" (click)="addRoll()" [disabled]="new_roll_name == '' || new_roll_string == '' || !this.diceService.validateDiceString(new_roll_string)">+</button>
+              <button type="button" class="btn btn-primary" role="button" (click)="addRoll()" [disabled]="new_roll_name == '' || new_roll_string == '' || this.validateDiceString() == false">+</button>
             </div>
           </div>
         </div>
