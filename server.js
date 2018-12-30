@@ -4,7 +4,7 @@ const express = require("express"),
     path = require("path"),
     port = 8000;
 
-app.use(express.static(path.join(__dirname, "./angularApp/dist")));
+app.use(express.static(path.join(__dirname, "./public/dist")));
 app.use(bp.json());
 
 // require("./server/config/mongoose");
