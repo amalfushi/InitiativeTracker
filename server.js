@@ -10,4 +10,4 @@ app.use(bp.json());
 // require("./server/config/mongoose");
 require("./server/config/routes")(app);
 
-app.listen(port, () => console.log(`\nListening on port ${port}.....\n`));
+app.listen(port);
