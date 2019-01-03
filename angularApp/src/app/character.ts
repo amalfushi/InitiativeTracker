@@ -1,7 +1,7 @@
 import { Roll } from "./roll";
 
 export class Character {
-    id: number;
+    _id: number;
     name: string = "";
     player_name: string = "";
     initiative: number;

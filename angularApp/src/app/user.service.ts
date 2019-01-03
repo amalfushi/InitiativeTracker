@@ -17,7 +17,7 @@ export class UserService {
     this.user = new User();
     this.user.username = 'amalfushi';
     this.user.character_settings = ["Hit Points", "Armor Class", "Spell TN"]
-
+    
     let c1 = new Character();
     Object.assign(c1, {
       id: 1,
@@ -74,7 +74,7 @@ export class UserService {
   
   //////////////THIS BREAKS DICE ROLLS when adding a dice roll to a saved character without dice rolls
   saveCharacter(character: Character): Character {
-    let found = this.user.saved_characters.findIndex((e) => e.id === character.id);
+    let found = this.user.saved_characters.findIndex((e) => e._id === character._id);
 
     if (found < 0) {//add character (post)
       this.user.saved_characters.push(character);
