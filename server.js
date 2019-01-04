@@ -1,7 +1,13 @@
-var http = require('http');
+const express = require("express"),
+    app = express(),
+    bp = require("body-parser"),
+    path = require("path"),
+    port = 80;
 
-var server = http.createServer(function(req, res) {
-  res.writeHead(200);
-  res.end('Hello Azure');
-});
-server.listen(process.env.PORT);
+app.use(express.static(path.join(__dirname, "./public/dist")));
+app.use(bp.json());
+
+// require("./server/config/mongoose");
+require("./server/config/routes")(app);
+
+app.listen(port);
