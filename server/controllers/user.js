@@ -1,5 +1,6 @@
 const mongoose = require("mongoose"),
-    Users = mongoose.model("User");
+    Users = mongoose.model("User"),
+    Characters = mongoose.model("Character");
 
 module.exports = {
     create: function (req, res) {
@@ -21,10 +22,20 @@ module.exports = {
         )
     },
 
-    getOne: function(req, res) {
-        Users.findById(req.params.id, (err, user) => {
+    getOne: function (req, res) {
+        Users.findById(req.params.id)
+            .populate({ path: "saved_characters", model: "Character", options: { sort: { 'name': 1 }}})
+            .exec((err, user) => {
+                if (err) return res.json(err);
+                return res.json(user);
+            });
+    },
+
+    //////ONLY FOR TESTING
+    getAll: function(req, res) {
+        Users.find({}, (err, users) => {
             if (err) return res.json(err);
-            return res.json(user);
+            return res.json(users);
         });
     },
 
@@ -44,7 +55,7 @@ module.exports = {
         });
     },
 
-    addCharacter: function (req, res) {
-        
-    }
+    //TODO:
+    //  add password and validation
+    //  add session checks
 }
